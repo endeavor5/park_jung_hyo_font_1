@@ -3,6 +3,12 @@ import Router from 'next/router';
 import App from 'next/app'
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
+
+import Slider from 'react-rangeslider'
+import VerticalSlider from "../components/VerticalSlider";
+import HorizontalSlider from "../components/HorizontalSlider";
+
+import { ChromePicker } from 'react-color'; 
 import moment from 'moment';
 import store from "../common/store";
 
@@ -11,15 +17,30 @@ import Backdrop from './Backdrop';
 
 @observer
 class Header extends App {
+    
     constructor(props) {
         super(props);
-        //사용자가 입력한 props 처리
         this.state = {
             layoutMode: 'desktop',
-        }
+            input_content : 'ABCDEFGHIJKLMNOPQRSTUVWXYZ abcdefghijklmnopqestuvwxyz  ',
+
+            footerGap : 200, 
+
+            fontSizeState : 50,
+            fontWeightState: 300,
+            fontLetterSpacingState : 0,
+            fontLineSpacingState: 0.85,
+            fontColorState : '#000',
+            fontState : null,
+
+            isFontSizeAuto : false,
+            isFontWeightAuto : false,
+            isFontLetterSpacingAuto : false,
+            isFontLineSpacingAuto : false,
+        };
+
         this.onResize = this.onResize.bind(this);
     }
-    
     static async getInitialProps(props) {
         const { query } = props;
         // const { token, refreshToken } = query;
@@ -44,6 +65,160 @@ class Header extends App {
             mobile_drawer_menu.classList.toggle('open');
         });
     }
+
+
+    handleChangeComplete = (color) => {
+        // this.setState({ fontColorState: color.hex });
+        store.fontColorState = color.hex;
+      };
+    
+
+      handleFontSizeChange = event => {
+        //   console.log(event.target.value);
+        // this.setState({ fontSizeState: event  })
+        store.fontSizeState = event;
+      };
+      handleFontWeightChange = event => {
+        // this.setState({  fontWeightState: value  })
+        store.fontWeightState = event;
+      };
+
+
+      handleFontLetterSpacingChange = event => {
+        //   console.log(event.target.value);
+        // this.setState({  fontLetterSpacingState: event  })
+        store.fontLetterSpacingState = event;
+      };
+
+
+      handleFontLineSpacingChange = event => {
+        //   console.log(event.target.value);
+        // this.setState({ fontLineSpacingState: event  })
+        store.fontLineSpacingState = event;
+      };
+
+      _toggleFontSizeAuto  = event => {
+
+        if (event == null || event === undefined) {
+            // this.setState({ isFontSizeAuto: !this.state.isFontSizeAuto }) 
+            store.isFontSizeAuto = !store.isFontSizeAuto;
+        } else {
+            if (event == true) {
+                // this.setState({ isFontSizeAuto: true }) 
+                store.isFontSizeAuto = true;
+            } else {
+                // this.setState({ isFontSizeAuto: false  }) 
+                store.isFontSizeAuto = false;
+
+            }
+        } 
+      }
+
+
+      _toggleFontWeightAuto  = event => {
+
+        if (event == null || event === undefined) {
+            // this.setState({  isFontWeightAuto: !this.state.isFontWeightAuto }) 
+            store.isFontWeightAuto = !store.isFontWeightAuto
+        } else {
+            if (event == true) {
+                // this.setState({ isFontWeightAuto: true }) 
+                store.isFontWeightAuto = true
+            } else {
+                // this.setState({   isFontWeightAuto: false }) 
+                store.isFontWeightAuto = false
+            }
+        } 
+      }
+
+      _toggleFontLetterSpacingAuto  = event => {
+
+        if (event == null || event === undefined) {
+            // this.setState({ isFontLetterSpacingAuto: !this.state.isFontLetterSpacingAuto }) 
+            store.isFontLetterSpacingAuto = !store.isFontLetterSpacingAuto
+        } else {
+            if (event == true) {
+                // this.setState({ isFontLetterSpacingAuto: true }) 
+                store.isFontLetterSpacingAuto = true;
+            } else {
+                // this.setState({  isFontLetterSpacingAuto: false }) 
+                store.isFontLetterSpacingAuto = false;
+            }
+        } 
+      }
+
+      _toggleFontLineSpacingAuto  = event => {
+
+        if (event == null || event === undefined) {
+
+            this.setState({
+                isFontLineSpacingAuto: !this.state.isFontLineSpacingAuto
+            }) 
+        } else {
+            if (event == true) {
+
+                this.setState({
+                    isFontLineSpacingAuto: true
+                }) 
+            } else {
+
+                this.setState({
+                    isFontLineSpacingAuto: false
+                }) 
+            }
+        } 
+      }
+
+
+
+    _bannerGoItem = (index) => {
+        this.setState({
+            index_banner_content: index
+        });
+        this.startCount();
+    }
+
+      startCount() {
+        // this.setState({
+        //   isOn: true,
+        //   count: 0
+        // });
+        clearInterval(this.timer);
+        this.timer = setInterval( () => { 
+            this._bannerChange();
+        }, 5000);
+      }
+      
+  toogleSwitchState = (param_onoff) => {
+    clearInterval(this.timer);
+
+    if (param_onoff == true) {
+
+        this.startCount();
+        this.setState({ is_banner_animation: true })
+        return;
+    } 
+
+    
+    if (param_onoff == false) {
+
+        this.setState({ is_banner_animation: false })
+        return;
+    } 
+
+    
+
+    if (this.state.is_banner_animation == false) {
+        this.startCount();
+        this.setState({ is_banner_animation: true })
+    } else {
+        this.setState({ is_banner_animation: false })
+        //geolocation.stopObserving();
+    }
+  }
+
+
+
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.onResize);
@@ -76,7 +251,6 @@ class Header extends App {
     render() {
         
         const { path } = this.props;
-        const { genrecategory} = this.state;
         const stored_token = store.token
 
         return (
@@ -144,9 +318,13 @@ class Header extends App {
                     background: rgba(0, 0, 0, 0.3);
                     z-index: 9998;
                 }
+                .mobile_drawer_menu_left {
+                    width: calc(100% - 400px);
+                    height: 100%;
+                }
 
                 .mobile_drawer_menu_inner {
-                    width: 80%;
+                    width: 400px;
                     height: 100%;
                     min-width: 200px;
                     display: flex;
@@ -178,8 +356,47 @@ class Header extends App {
                     margin-left: 24px;  
                     margin-top: 16px;   
                 }
-
-
+                .slider-common {
+                    width: calc(100% - 40px);
+                }
+                .rangeslider-horizontal .rangeslider__fill {
+                    height: 100%;
+                    background-color: #000;
+                    border-radius: 10px;
+                    top: 0;
+                }
+                .rangeslider {
+                    margin: 8px 0;
+                    position: relative;
+                    background: #e6e6e6;
+                    -ms-touch-action: none;
+                    touch-action: none;
+                    }
+                .rangeslider {
+                    max-height: 30px;
+                }
+                .rangeslider-horizontal .rangeslider__handle {
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 10px;
+                    top: 50%;
+                    transform: translate3d(-50%,-50%,0);
+                    }
+                .rangeslider-horizontal {
+                    height: 6px;
+                    border-radius: 10px;
+                    }
+                    .rangeslider-horizontal .rangeslider__handle:after {
+                        content: '',
+                        position: absolute;
+                        width: 0px;
+                        height: 0px;
+                        top: 6px;
+                        left: 6px;
+                        border-radius: 50%;
+                        background-color: #dadada;
+                        box-shadow: 0 1px 3px rgba(0,0,0,.4) inset,0 -1px 3px rgba(0,0,0,.4) inset;
+                        }
                 /* Extra small devices (phones, 400px and down) */
                 @media only screen and (min-width: 400px) {
                     /* ... */
@@ -251,8 +468,9 @@ class Header extends App {
                             </div>
                         </div>
                         {/* Drawer 메뉴 */}
-                        <div id="mobile_drawer_menu" className="mobile_drawer_menu" >
-                            <div id="mobile_drawer_menu_left" style={{ width: '20%',  height: '100%'}}></div>
+                        <div id="mobile_drawer_menu" 
+                        className="mobile_drawer_menu" >
+                            <div id="mobile_drawer_menu_left" style={{ width: 'calc(100% - 400px)', height: '100%'}}></div>
                             <div  className="mobile_drawer_menu_inner">
 
                             <div id="menu-item-1" 
@@ -272,6 +490,158 @@ class Header extends App {
                                     PARK JUNG HYO's 1st Planet : Earth
                             </div>
                             
+                    <div >
+
+                        <div  
+                            style={{  
+                                fontSize : 20, 
+                                display: 'flex', 
+                                alignItems: 'flex-start', 
+                                justifyContent: 'center', 
+                                maxWidth: 400,
+                                marginLeft: 40,
+                                marginTop: 50, 
+                            }}>
+                                <div >
+                                <div 
+                                    style={{  fontFamily: 'Earth_FinalGX' , 
+                                        maxWidth: 225,
+                                        fontSize: 10, 
+                                    }}>
+                                        Font Size
+                                        <Slider
+                                        min={0}
+                                        max={100}
+                                        value={store.fontSizeState}
+                                        style={{ color: '#000'}}
+                                        onChange={this.handleFontSizeChange}
+                                        />
+                                        <div className='auto_row'>
+                                            <div className="font_value">{store.fontSizeState}</div>
+                                            <div 
+                                            style={{ 
+                                                backgroundColor: store.isFontSizeAuto ? '#000' : '#fff',
+                                                color : store.isFontSizeAuto ? '#fff' : '#000',
+                                                marginLeft: 20
+                                            }}
+                                            onClick={()=> {
+                                                this._toggleFontSizeAuto();
+                                            }}
+                                            >Automation</div></div>
+                                    </div>
+                                    <div 
+                                    style={{  
+                                        fontFamily: 'Earth_FinalGX' , 
+                                        maxWidth: 225,
+                                        fontSize: 10, 
+                                        marginTop: 20}}>
+                                        Font Weight
+                                        
+                                        <Slider
+                                        min={100}
+                                        max={900}
+                                        value={store.fontWeightState}
+                                        style={{ color: '#000'}}
+                                        onChangeStart={this.handleChangeStart}
+                                        onChange={this.handleFontWeightChange}
+                                        />
+                                        <div className='auto_row'>
+                                            <div className="font_value">{store.fontWeightState}</div>
+                                            <div 
+                                            style={{ 
+                                                backgroundColor: store.isFontWeightAuto ? '#000' : '#fff',
+                                                color : store.isFontWeightAuto ? '#fff' : '#000',
+                                                marginLeft: 20
+                                            }}
+                                            onClick={()=> {
+                                                this._toggleFontWeightAuto();
+                                            }}
+                                            >Automation</div>
+                                        </div>
+                                    </div>
+                                    <div 
+                                    style={{  
+                                        fontFamily: 'Earth_FinalGX' , 
+                                        maxWidth: 225,
+                                        marginTop: 20,
+                                        fontSize: 10, 
+                                        }}>
+                                        Letter Spacing
+                                        
+                                        <Slider
+                                        min={-0.1}
+                                        max={0.2}
+                                        value={store.fontLetterSpacingState}
+                                        style={{ color: '#000'}}
+                                        onChange={this.handleFontLetterSpacingChange}
+                                        step={0.01}
+                                        />
+                                        <div className='auto_row'>
+
+                                            <div className="font_value">
+                                            {store.fontLetterSpacingState.toFixed(2)}</div>
+                                            <div 
+                                            style={{ 
+                                                backgroundColor: store.isFontLetterSpacingAuto ? '#000' : '#fff',
+                                                color : store.isFontLetterSpacingAuto ? '#fff' : '#000',
+                                                marginLeft: 20
+                                            }}
+                                            onClick={()=> {
+                                                this._toggleFontLetterSpacingAuto();
+                                            }}
+                                            >Automation</div></div>
+                                    </div>
+                                    <div
+                                    style={{  
+                                        fontFamily: 'Earth_FinalGX' , 
+                                        maxWidth: 225,
+                                        marginTop: 20,
+
+                                        fontSize: 10, 
+                                        }}>
+                                        Line Spacing
+                                        <Slider
+                                        min={0.85}
+                                        max={1.5}
+                                        value={store.fontLineSpacingState}
+                                        step={0.01} 
+                                        style={{ color: '#000'}}
+                                        onChange={this.handleFontLineSpacingChange}
+                                        />
+                                        <div className='auto_row'>
+                                            
+                                        <div className="font_value">{store.fontLineSpacingState.toFixed(2)}</div>
+                                            
+                                        <div 
+                                        style={{ 
+                                            backgroundColor: store.isFontLineSpacingAuto ? '#000' : '#fff',
+                                            color : store.isFontLineSpacingAuto ? '#fff' : '#000',
+                                            marginLeft: 20
+                                        }}
+                                        
+                                        onClick={()=> {
+                                            this._toggleFontLineSpacingAuto();
+                                        }}
+                                        >Automation</div></div>
+                                    </div>
+
+
+                                    <div
+                                    style={{  
+                                        fontFamily: 'Earth_FinalGX',
+                                        fontSize: 10,  }}>Color
+                                        <br/>
+                                    </div>
+                                        <ChromePicker
+                                            color={ store.fontColorState }
+                                            onChangeComplete={ this.handleChangeComplete }
+                                            
+                                        />
+                                </div>
+                                
+                            <div className="font_display_controller"></div>
+                        </div>
+                    </div>
                             </div>
                         </div>
                     </div>

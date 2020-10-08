@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import { observable, toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import Router from 'next/router';
-import Slider from 'react-rangeslider'
 import Header from "../components/Header";
 import Navbar from "../components/Header";
 import Footer from "../components/Footer";
-import VerticalSlider from "../components/VerticalSlider";
-import HorizontalSlider from "../components/HorizontalSlider";
-
-import { ChromePicker } from 'react-color'; 
+import store from "../common/store";
 
 
 
@@ -39,379 +35,28 @@ class Index extends Component {
     }
 
 
-
-    handleChange = (paramName, event) => {
-        if (paramName == 'input_content') {
-            this.setState({
-                input_content: event.target.value,
-                errorMessage: ''
-            });
-        }
-
-    };
-
-    handleChangeComplete = (color) => {
-        this.setState({ fontColorState: color.hex });
-      };
-    
-
-      handleFontSizeChange = event => {
-        //   console.log(event.target.value);
-        this.setState({
-            fontSizeState: event
-        })
-      };
-      handleFontWeightChange = value => {
-        this.setState({
-            fontWeightState: value
-        })
-      };
-
-
-      handleFontLetterSpacingChange = event => {
-        //   console.log(event.target.value);
-        this.setState({
-            fontLetterSpacingState: event
-        })
-      };
-
-
-      handleFontLineSpacingChange = event => {
-        //   console.log(event.target.value);
-        this.setState({
-            fontLineSpacingState: event
-        })
-      };
-
-      _toggleFontSizeAuto  = event => {
-
-        if (event == null || event === undefined) {
-
-            this.setState({
-                isFontSizeAuto: !this.state.isFontSizeAuto
-            }) 
-        } else {
-            if (event == true) {
-
-                this.setState({
-                    isFontSizeAuto: true
-                }) 
-            } else {
-
-                this.setState({
-                    isFontSizeAuto: false
-                }) 
-            }
-        } 
-      }
-
-
-      _toggleFontWeightAuto  = event => {
-
-        if (event == null || event === undefined) {
-
-            this.setState({
-                isFontWeightAuto: !this.state.isFontWeightAuto
-            }) 
-        } else {
-            if (event == true) {
-
-                this.setState({
-                    isFontWeightAuto: true
-                }) 
-            } else {
-
-                this.setState({
-                    isFontWeightAuto: false
-                }) 
-            }
-        } 
-      }
-
-      _toggleFontLetterSpacingAuto  = event => {
-
-        if (event == null || event === undefined) {
-
-            this.setState({
-                isFontLetterSpacingAuto: !this.state.isFontLetterSpacingAuto
-            }) 
-        } else {
-            if (event == true) {
-
-                this.setState({
-                    isFontLetterSpacingAuto: true
-                }) 
-            } else {
-
-                this.setState({
-                    isFontLetterSpacingAuto: false
-                }) 
-            }
-        } 
-      }
-
-      _toggleFontLineSpacingAuto  = event => {
-
-        if (event == null || event === undefined) {
-
-            this.setState({
-                isFontLineSpacingAuto: !this.state.isFontLineSpacingAuto
-            }) 
-        } else {
-            if (event == true) {
-
-                this.setState({
-                    isFontLineSpacingAuto: true
-                }) 
-            } else {
-
-                this.setState({
-                    isFontLineSpacingAuto: false
-                }) 
-            }
-        } 
-      }
-
-
-
-    _bannerGoItem = (index) => {
-        this.setState({
-            index_banner_content: index
-        });
-        this.startCount();
-    }
-
-      startCount() {
-        // this.setState({
-        //   isOn: true,
-        //   count: 0
-        // });
-        clearInterval(this.timer);
-        this.timer = setInterval( () => { 
-            this._bannerChange();
-        }, 5000);
-      }
-      
-  toogleSwitchState = (param_onoff) => {
-    clearInterval(this.timer);
-
-    if (param_onoff == true) {
-
-        this.startCount();
-        this.setState({ is_banner_animation: true })
-        return;
-    } 
-
-    
-    if (param_onoff == false) {
-
-        this.setState({ is_banner_animation: false })
-        return;
-    } 
-
-    
-
-    if (this.state.is_banner_animation == false) {
-        this.startCount();
-        this.setState({ is_banner_animation: true })
-    } else {
-        this.setState({ is_banner_animation: false })
-        //geolocation.stopObserving();
-    }
-  }
-
-
-
     render() {
-        const { 
-            fontSizeState, 
-            fontWeightState, 
-            fontLetterSpacingState,
-            fontLineSpacingState,
-            fontColorState,  
-            isFontSizeAuto,
-            isFontWeightAuto,
-            isFontLetterSpacingAuto,
-            isFontLineSpacingAuto,
-            input_content } = this.state;
         return (
             <>
             <Header></Header>
                 <div className=" " style={{ width: '100%', marginTop: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-                    <div className="font_display_container  max-width-wrapper">
-
-                        <div className="font_display_area" style={{  fontSize : 20,display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
-                                <div className="left " >
-                                <div className="font_display_control_label" 
-                                    style={{ 
-                                        fontFamily: 'Earth_FinalGX' , width: 'calc(100% - 40px)'}}>
-                                        Font Size
-                                        {/* <br/>
-                                        <input type="range" id="vol" name="vol" min="0" max="50" 
-                                        style={{ width: '100%'}}
-                                        value={fontSizeState} 
-                                        onChange={e=>this.handleFontSizeChange(e)}
-                                        />     */}
-
-
-                                        <Slider
-                                        min={0}
-                                        max={100}
-                                        value={fontSizeState}
-                                        style={{ color: '#000'}}
-                                        onChange={this.handleFontSizeChange}
-                                        />
-                                        <div className='auto_row'>
-                                            <div className="font_value">{fontSizeState}</div>
-                                            <div className="auto_buttton cursor_pointer not_draggable" 
-                                            style={{ 
-                                                backgroundColor: isFontSizeAuto ? '#000' : '#fff',
-                                                color : isFontSizeAuto ? '#fff' : '#000',
-                                                marginLeft: 20
-                                            }}
-                                            onClick={()=> {
-                                                this._toggleFontSizeAuto();
-                                            }}
-                                            >Automation</div></div>
-                                    </div>
-                                    <div className="font_display_control_label" 
-                                    style={{  
-                                        fontFamily: 'Earth_FinalGX' , width: 'calc(100% - 40px)', marginTop: 100}}>
-                                        Font Weight
-                                        
-                                        <Slider
-                                        min={100}
-                                        max={900}
-                                        value={fontWeightState}
-                                        style={{ color: '#000'}}
-                                        onChangeStart={this.handleChangeStart}
-                                        onChange={this.handleFontWeightChange}
-                                        />
-                                        <div className='auto_row'>
-                                            <div className="font_value">{fontWeightState}</div>
-                                            <div 
-                                            className="auto_buttton cursor_pointer not_draggable" 
-                                            style={{ 
-                                                backgroundColor: isFontWeightAuto ? '#000' : '#fff',
-                                                color : isFontWeightAuto ? '#fff' : '#000',
-                                                marginLeft: 20
-                                            }}
-                                            onClick={()=> {
-                                                this._toggleFontWeightAuto();
-                                            }}
-                                            >Automation</div>
-                                        </div>
-                                    </div>
-                                    <div className="font_display_control_label" 
-                                    style={{  
-                                        fontFamily: 'Earth_FinalGX' , width: 'calc(100% - 40px)', marginTop: 100}}>
-                                        Letter Spacing
-                                        
-                                        <Slider
-                                        min={-0.1}
-                                        max={0.2}
-                                        value={fontLetterSpacingState}
-                                        style={{ color: '#000'}}
-                                        onChange={this.handleFontLetterSpacingChange}
-                                        step={0.01}
-                                        />
-                                        <div className='auto_row'>
-
-                                            <div className="font_value">
-                                            {fontLetterSpacingState.toFixed(2)}</div>
-                                            <div 
-                                            className="auto_buttton cursor_pointer not_draggable" 
-                                            style={{ 
-                                                backgroundColor: isFontLetterSpacingAuto ? '#000' : '#fff',
-                                                color : isFontLetterSpacingAuto ? '#fff' : '#000',
-                                                marginLeft: 20
-                                            }}
-                                            onClick={()=> {
-                                                this._toggleFontLetterSpacingAuto();
-                                            }}
-                                            >Automation</div></div>
-                                    </div>
-                                    <div className="font_display_control_label" 
-                                    style={{  
-                                        fontFamily: 'Earth_FinalGX' , width: 'calc(100% - 40px)', marginTop: 100}}>
-                                        Line Spacing
-                                        <Slider
-                                        min={0.85}
-                                        max={1.5}
-                                        value={fontLineSpacingState}
-                                        step={0.01} 
-                                        style={{ color: '#000'}}
-                                        onChange={this.handleFontLineSpacingChange}
-                                        />
-                                        <div className='auto_row'>
-                                            
-                                        <div className="font_value">{fontLineSpacingState.toFixed(2)}</div>
-                                            
-                                        <div 
-                                        className="auto_buttton cursor_pointer not_draggable" 
-                                        style={{ 
-                                            backgroundColor: isFontLineSpacingAuto ? '#000' : '#fff',
-                                            color : isFontLineSpacingAuto ? '#fff' : '#000',
-                                            marginLeft: 20
-                                        }}
-                                        
-                                        onClick={()=> {
-                                            this._toggleFontLineSpacingAuto();
-                                        }}
-                                        >Automation</div></div>
-                                    </div>
-
-                                    {/* <div className="font_display_control_label" 
-                                    style={{  fontFamily: "Noto Sans KR", width: 'calc(100% - 40px)', marginTop: 100}}>
-                                        애니메이션 - Animation
-
-                                        <Slider
-                                        min={0}
-                                        max={100}
-                                        value={fontAnimationState}
-                                        style={{ color: '#000'}}
-                                        onChangeStart={this.handleChangeStart}
-                                        onChange={this.handleFontAnimationChange}
-                                        />
-                                        <div className='value'>{fontAnimationState}</div>
-
-                                    </div> */}
-                                </div>
-                                <div className="right " >
-
-                                    <div className="font_display_control_label color_container_responsive_margin" 
-                                    style={{  
-                                        fontFamily: 'Earth_FinalGX' }}>Color
-                                        <br/>
-                                    </div>
-                                        <ChromePicker
-                                            color={ this.state.fontColorState }
-                                            onChangeComplete={ this.handleChangeComplete }
-                                            
-                                        />
-                                    
-                                </div>
-                                
-                            <div className="font_display_controller"></div>
-                        </div>
-                    </div>
 
                     <div className="font_display_container  max-width-wrapper"  style={{  marginTop: 40, }}>
 
                         <div className="font_display_area" style={{  
-                            fontSize : fontSizeState,
-                            fontWeight: fontWeightState,}}>
+                            fontSize : store.fontSizeState,
+                            fontWeight: store.fontWeightState,}}>
                             <textarea
                                     className="input_content"
                                     placeholder="Font Contents"
                                     name="input_content"
                                     value={this.state.input_content}
                                     style={{  
-                                        fontSize : fontSizeState, 
-                                        fontWeight: fontWeightState,
-                                        color: fontColorState,
-                                        letterSpacing: fontLetterSpacingState, 
-                                        lineHeight: fontLineSpacingState,
+                                        fontSize : store.fontSizeState, 
+                                        fontWeight: store.fontWeightState,
+                                        color: store.fontColorState,
+                                        letterSpacing: store.fontLetterSpacingState, 
+                                        lineHeight: store.fontLineSpacingState,
                                         wordWrap: 'wrap',
                                         whiteSpace: 'pre-wrap',
                                         fontFamily: 'Earth_FinalGX' 
@@ -451,12 +96,7 @@ class Index extends Component {
                     
 
                 }
-                .rangeslider-horizontal .rangeslider__fill {
-                    height: 100%;
-                    background-color: #000;
-                    border-radius: 10px;
-                    top: 0;
-                }
+                
                     div.left {
                     width: 50%;
                     float: left;

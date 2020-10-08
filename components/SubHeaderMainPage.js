@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Router from 'next/router';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
-import * as store from "../common/store";
 
 import Backdrop from './Backdrop';
 
