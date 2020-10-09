@@ -42,9 +42,13 @@ class Index extends Component {
     }
 
     render() {
+
+        const prefix = process.env.NODE_ENV === 'production' ? 'http://endeavor5.github.io/park_jung_hyo_font_1' : '';
+    
+
         return (
             <>
-            <Header></Header>
+            <Header prefix={prefix}></Header>
                 <div className=" " style={{ width: '100%', marginTop: 200, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
 
                     <div className="font_display_container  max-width-wrapper"  style={{  marginTop: 40, }}>
@@ -75,7 +79,7 @@ class Index extends Component {
                     </div>
                 </div>
             <div style={{ height: 400 }}></div>
-            <Footer path={'/'} footerGap={this.state.footerGap}/>
+            <Footer prefix={prefix} path={'/'} footerGap={this.state.footerGap}/>
 
             <style 
             jsx="true"

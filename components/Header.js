@@ -1148,7 +1148,7 @@ class Header extends App {
                 {`
                         @font-face {
                             font-family: "Earth_FinalGX";
-                            src: url(/static/fonts/Earth_FinalGX.ttf) format("truetype");
+                            src: url(${this.props.prefix}/static/fonts/Earth_FinalGX.ttf) format("truetype");
                           }
                           `}
                           </style>
