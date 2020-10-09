@@ -7,6 +7,8 @@ import { observer } from 'mobx-react';
 import Slider from 'react-rangeslider'
 import VerticalSlider from "../components/VerticalSlider";
 import HorizontalSlider from "../components/HorizontalSlider";
+import SVG from '../components/SVG';
+
 
 import { ChromePicker } from 'react-color'; 
 import moment from 'moment';
@@ -64,7 +66,116 @@ class Header extends App {
             icon[0].classList.toggle('close');
             mobile_drawer_menu.classList.toggle('open');
         });
+
+        if (this.fontSizeTimer) {
+            clearInterval(this.fontSizeTimer);
+        }
+        if (this.fontWeightTimer) {
+            clearInterval(this.fontWeightTimer);
+        }
+        if (this.fontLetterTimer) {
+            clearInterval(this.fontLetterTimer);
+        }
+        if (this.fontLineTimer) {
+            clearInterval(this.fontLineTimer);
+        }
     }
+
+    componentWillUnmount () {
+        if (this.fontSizeTimer) {
+            clearInterval(this.fontSizeTimer);
+        }
+        if (this.fontWeightTimer) {
+            clearInterval(this.fontWeightTimer);
+        }
+        if (this.fontLetterTimer) {
+            clearInterval(this.fontLetterTimer);
+        }
+        if (this.fontLineTimer) {
+            clearInterval(this.fontLineTimer);
+        }
+    }
+
+    __registerAutoFontSize = () => {
+
+        this.fontSizeTimer = setInterval( () => { 
+            if (store.directionFontSize == 'positive') {
+                store.fontSizeState = store.fontSizeState + store.unitFontSize
+            } else {
+                store.fontSizeState = store.fontSizeState - store.unitFontSize
+            }
+    
+            if (store.fontSizeState >= store.maxFontSize) {
+                store.directionFontSize = 'negative'
+            } 
+            
+            if (store.fontSizeState <= store.minFontSize) {
+                store.directionFontSize = 'positive'
+            } 
+            
+        },   200 * ( 100 /  store.secondFontSize));
+    }
+
+
+    __registerAutoFontWeight = () => {
+        this.fontWeightTimer = setInterval( () => { 
+            if (store.directionFontWeight == 'positive') {
+                store.fontWeightState = store.fontWeightState + store.unitFontWeight
+            } else {
+                store.fontWeightState = store.fontWeightState - store.unitFontWeight
+            }
+
+            if (store.fontWeightState >= store.maxFontWeight) {
+                store.directionFontWeight = 'negative'
+            } 
+            
+            if (store.fontWeightState <= store.minFontWeight) {
+                store.directionFontWeight = 'positive'
+            } 
+            
+        },   200 * ( 100 /  store.secondFontWeight));
+    }
+
+    __registerAutoFontLetter = () => {
+        this.fontLetterTimer = setInterval( () => { 
+            if (store.directionFontLetterSpacing == 'positive') {
+                store.fontLetterSpacingState = store.fontLetterSpacingState + store.unitFontLetterSpacing
+            } else {
+                store.fontLetterSpacingState = store.fontLetterSpacingState - store.unitFontLetterSpacing
+            }
+    
+            if (store.fontLetterSpacingState >= store.maxFontLetterSpacing) {
+                store.directionFontLetterSpacing = 'negative'
+            } 
+            
+            if (store.fontLetterSpacingState <= store.minFontLetterSpacing) {
+                store.directionFontLetterSpacing = 'positive'
+            } 
+            
+        },  200 * ( 100 /  store.secondFontLetterSpacing) );
+    }
+
+    __registerAutoFontLine = () => {
+
+        this.fontLineTimer = setInterval( () => { 
+            if (store.directionFontLineSpacing == 'positive') {
+                store.fontLineSpacingState = store.fontLineSpacingState + store.unitFontLineSpacing
+            } else {
+                store.fontLineSpacingState = store.fontLineSpacingState - store.unitFontLineSpacing
+            }
+    
+            if (store.fontLineSpacingState >= store.maxFontLineSpacing) {
+                store.directionFontLineSpacing = 'negative'
+            } 
+            
+            if (store.fontLineSpacingState <= store.minFontLineSpacing) {
+                store.directionFontLineSpacing = 'positive'
+            } 
+            
+        }, 200 * ( 100 /  store.secondFontLineSpacing) );
+    }
+
+
 
 
     handleChangeComplete = (color) => {
@@ -98,9 +209,14 @@ class Header extends App {
       };
 
       _toggleFontSizeAuto  = event => {
-
         if (event == null || event === undefined) {
             // this.setState({ isFontSizeAuto: !this.state.isFontSizeAuto }) 
+            if (store.isFontSizeAuto == true) {
+                clearInterval(this.fontSizeTimer);
+            } else {
+                clearInterval(this.fontSizeTimer);
+                this.__registerAutoFontSize();
+            }
             store.isFontSizeAuto = !store.isFontSizeAuto;
         } else {
             if (event == true) {
@@ -119,6 +235,12 @@ class Header extends App {
 
         if (event == null || event === undefined) {
             // this.setState({  isFontWeightAuto: !this.state.isFontWeightAuto }) 
+            if (store.isFontWeightAuto == true) {
+                clearInterval(this.fontWeightTimer);
+            } else {
+                clearInterval(this.fontWeightTimer);
+                this.__registerAutoFontWeight();
+            }
             store.isFontWeightAuto = !store.isFontWeightAuto
         } else {
             if (event == true) {
@@ -135,6 +257,12 @@ class Header extends App {
 
         if (event == null || event === undefined) {
             // this.setState({ isFontLetterSpacingAuto: !this.state.isFontLetterSpacingAuto }) 
+            if (store.isFontLetterSpacingAuto == true) {
+                clearInterval(this.fontLetterTimer);
+            } else {
+                clearInterval(this.fontLetterTimer);
+                this.__registerAutoFontLetter();
+            }
             store.isFontLetterSpacingAuto = !store.isFontLetterSpacingAuto
         } else {
             if (event == true) {
@@ -150,21 +278,21 @@ class Header extends App {
       _toggleFontLineSpacingAuto  = event => {
 
         if (event == null || event === undefined) {
-
-            this.setState({
-                isFontLineSpacingAuto: !this.state.isFontLineSpacingAuto
-            }) 
+            // this.setState({  isFontLineSpacingAuto: !this.state.isFontLineSpacingAuto }) 
+            if (store.isFontLineSpacingAuto == true) {
+                clearInterval(this.fontLineTimer);
+            } else {
+                clearInterval(this.fontLineTimer);
+                this.__registerAutoFontLine();
+            }
+            store.isFontLineSpacingAuto = !store.isFontLineSpacingAuto;
         } else {
             if (event == true) {
-
-                this.setState({
-                    isFontLineSpacingAuto: true
-                }) 
-            } else {
-
-                this.setState({
-                    isFontLineSpacingAuto: false
-                }) 
+                // this.setState({ isFontLineSpacingAuto: true  }) 
+                store.isFontLineSpacingAuto = true;
+            } else { 
+                // this.setState({ isFontLineSpacingAuto: false  }) 
+                store.isFontLineSpacingAuto = false;
             }
         } 
       }
@@ -248,8 +376,149 @@ class Header extends App {
         });
     };
 
-    render() {
+    __togglePlayAll = () => {
+        if ( store.isPlayAll == true ) {
+            store.isPlayAll = false
+            store.isFontSizeAuto = false;
+            store.isFontWeightAuto = false;
+            store.isFontLineSpacingAuto = false;
+            store.isFontLetterSpacingAuto = false;
+
+            if (this.fontSizeTimer) {
+                clearInterval(this.fontSizeTimer);
+            }
+            if (this.fontWeightTimer) {
+                clearInterval(this.fontWeightTimer);
+            }
+            if (this.fontLetterTimer) {
+                clearInterval(this.fontLetterTimer);
+            }
+            if (this.fontLineTimer) {
+                clearInterval(this.fontLineTimer);
+            }
+            
+        } else {
+            store.isPlayAll = true
+            store.isFontSizeAuto = true;
+            store.isFontWeightAuto = true;
+            store.isFontLineSpacingAuto = true;
+            store.isFontLetterSpacingAuto = true;
+            if (store.isFontSizeAuto == false) {
+                clearInterval(this.fontSizeTimer);
+            } else {
+                clearInterval(this.fontSizeTimer);
+                this.__registerAutoFontSize();
+            }
+            if (store.isFontWeightAuto == false) {
+                clearInterval(this.fontWeightTimer);
+            } else {
+                clearInterval(this.fontWeightTimer);
+                this.__registerAutoFontWeight();
+            }
+            if (store.isFontLetterSpacingAuto == false) {
+                clearInterval(this.fontLetterTimer);
+            } else {
+                clearInterval(this.fontLetterTimer);
+                setInterval(this.fontLetterTimer);
+                this.__registerAutoFontLetter();
+            }
+            if (store.isFontLineSpacingAuto == false) {
+                clearInterval(this.fontLineTimer);
+            } else {
+                clearInterval(this.fontLineTimer);
+                this.__registerAutoFontLine();
+            }
+
+        }
+    }
+    __toggleResetAll  = () => {
+
+
+        store.isPlayAll = false;
+        store.fontSizeState = store.defaultFontSizeState;
+        store.fontWeightState = store.defaultFontWeightState;
+        store.fontLetterSpacingState = store.defaultFontLetterSpacingState;
+        store.fontLineSpacingState = store.defaultFontLineSpacingState;
+        store.fontColorState = store.defaultFontColorState;
+        store.fontState = store.defaultFontState;
+
+        store.isPlayAll = false
+        store.isFontSizeAuto = false;
+        store.isFontWeightAuto = false;
+        store.isFontLineSpacingAuto = false;
+        store.isFontLetterSpacingAuto = false;
+
+
+        store.directionFontSize = 'positive'; // negative;
+        store.secondFontSize = 100;
+        store.directionFontWeight = 'positive'; // negative;
+        store.secondFontWeight = 100;
+        store.directionFontLetterSpacing = 'positive'; // negative;
+        store.secondFontLetterSpacing  = 100;
+        store.directionFontLineSpacing = 'positive'; // negative;
+        store.secondFontLineSpacing  = 100;
         
+        if (this.fontSizeTimer) {
+            clearInterval(this.fontSizeTimer);
+        }
+        if (this.fontWeightTimer) {
+            clearInterval(this.fontWeightTimer);
+        }
+        if (this.fontLetterTimer) {
+            clearInterval(this.fontLetterTimer);
+        }
+        if (this.fontLineTimer) {
+            clearInterval(this.fontLineTimer);
+        }
+    }
+
+
+    __toggleSecond = (param) => {
+        console.log('__toggleSecond');
+        var unit = 0;
+        param == 'font/size' ? unit = store.secondFontSize : null;
+        param == 'font/weight' ? unit = store.secondFontWeight : null;
+        param == 'font/letter-spacing' ? unit = store.secondFontLetterSpacing : null;
+        param == 'font/line-spacing' ? unit = store.secondFontLineSpacing : null;
+        
+        if (unit == 100 ) {unit = 200 } 
+        else if (unit == 200 ) {unit = 300 } 
+        else if (unit == 300 ) {unit = 100 } 
+        
+        param == 'font/size' ? store.secondFontSize = unit : null;
+        param == 'font/weight' ?  store.secondFontWeight = unit : null;
+        param == 'font/letter-spacing' ?  store.secondFontLetterSpacing = unit : null;
+        param == 'font/line-spacing' ?  store.secondFontLineSpacing = unit : null;
+
+        if (store.isFontSizeAuto == false) {
+            clearInterval(this.fontSizeTimer);
+        } else {
+            clearInterval(this.fontSizeTimer);
+            this.__registerAutoFontSize();
+        }
+        if (store.isFontWeightAuto == false) {
+            clearInterval(this.fontWeightTimer);
+        } else {
+            clearInterval(this.fontWeightTimer);
+            this.__registerAutoFontWeight();
+        }
+        if (store.isFontLetterSpacingAuto == false) {
+            clearInterval(this.fontLetterTimer);
+        } else {
+            clearInterval(this.fontLetterTimer);
+            setInterval(this.fontLetterTimer);
+            this.__registerAutoFontLetter();
+        }
+        if (store.isFontLineSpacingAuto == false) {
+            clearInterval(this.fontLineTimer);
+        } else {
+            clearInterval(this.fontLineTimer);
+            this.__registerAutoFontLine();
+        }
+    }
+
+
+    render() {
         const { path } = this.props;
         const stored_token = store.token
 
@@ -443,7 +712,6 @@ class Header extends App {
             <div id="header">
                 <div className="header-wrapper is_desktop_laptop_tablet_phone_xsmall_xxsmall  max-width-wrapper">
                     <div className="header-left">
-                        
                     </div>
                     <div 
                     style={{
@@ -503,10 +771,56 @@ class Header extends App {
                                 marginTop: 50, 
                             }}>
                                 <div >
+
+                                <div style={{ width: '100%', display : 'flex', marginBottom: 20, }}>
+
+                                    <div
+                                        style={{  fontFamily: 'Earth_FinalGX' , 
+                                        width: 80,
+                                        height: 20, 
+                                            fontSize: 10, 
+                                            fontWeight: 700,
+                                            backgroundColor: store.isPlayAll == true ? '#000' : '#E4E4E4',
+                                            color : store.isPlayAll == true ? '#fff' : '#000',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            borderRadius : 8,
+                                            
+                                        }}
+                                        onClick={()=> {
+                                            this.__togglePlayAll()
+                                        }}
+                                        >
+                                        {store.isPlayAll == true ? 'Pause all' : 'Play all'}
+                                    </div>
+                                    <div
+                                        style={{  fontFamily: 'Earth_FinalGX' , 
+                                        width: 80,
+                                        height: 20, 
+                                            fontSize: 10, 
+                                            fontWeight: 700,
+                                            backgroundColor: '#E4E4E4',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            marginLeft: 8,
+                                            borderRadius : 8,
+                                        }}
+                                        onClick={()=> {
+                                            this.__toggleResetAll()
+                                        }}
+                                        >
+                                        Reset
+                                    </div>
+                                    
+                                </div>
+
                                 <div 
                                     style={{  fontFamily: 'Earth_FinalGX' , 
                                         maxWidth: 225,
                                         fontSize: 10, 
+                                        fontWeight: 700,
                                     }}>
                                         Font Size
                                         <Slider
@@ -520,20 +834,66 @@ class Header extends App {
                                             <div className="font_value">{store.fontSizeState}</div>
                                             <div 
                                             style={{ 
-                                                backgroundColor: store.isFontSizeAuto ? '#000' : '#fff',
+                                                backgroundColor: store.isFontSizeAuto ? '#000' : '#E4E4E4',
                                                 color : store.isFontSizeAuto ? '#fff' : '#000',
-                                                marginLeft: 20
+                                                width: 80,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 8,
+                                                fontSize: 10,
                                             }}
                                             onClick={()=> {
                                                 this._toggleFontSizeAuto();
                                             }}
-                                            >Automation</div></div>
+                                            >
+                                                {store.isFontSizeAuto ? 'Pause' : 'Play'}
+                                            </div>
+                                            {/* store.secondFontSize */}
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}
+                                                onClick={()=> {
+                                                    this.__toggleSecond('font/size')
+                                                }}
+                                            >
+                                            {store.secondFontSize == 100 ? "x1"  : ""}
+                                            {store.secondFontSize == 200 ? "x2"  : ""}
+                                            {store.secondFontSize == 300 ? "x3"  : ""}
+                                                
+                                            </div>
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}>
+                                                ?
+                                            </div>
+                                    </div>
                                     </div>
                                     <div 
                                     style={{  
                                         fontFamily: 'Earth_FinalGX' , 
                                         maxWidth: 225,
                                         fontSize: 10, 
+                                        fontWeight: 700,
                                         marginTop: 20}}>
                                         Font Weight
                                         
@@ -549,14 +909,57 @@ class Header extends App {
                                             <div className="font_value">{store.fontWeightState}</div>
                                             <div 
                                             style={{ 
-                                                backgroundColor: store.isFontWeightAuto ? '#000' : '#fff',
+                                                backgroundColor: store.isFontWeightAuto ? '#000' : '#E4E4E4',
                                                 color : store.isFontWeightAuto ? '#fff' : '#000',
-                                                marginLeft: 20
+                                                width: 80,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 8,
+                                                fontSize: 10,
                                             }}
                                             onClick={()=> {
                                                 this._toggleFontWeightAuto();
                                             }}
-                                            >Automation</div>
+                                            >
+                                            {store.isFontWeightAuto ? 'Pause' : 'Play'}
+                                            </div>
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}
+                                            onClick={()=> {
+
+                                                this.__toggleSecond('font/weight')
+                                            }}
+                                            >
+                                            {store.secondFontWeight == 100 ? "x1"  : ""}
+                                            {store.secondFontWeight == 200 ? "x2"  : ""}
+                                            {store.secondFontWeight == 300 ? "x3"  : ""}
+                                            </div>
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}>
+                                                ?
+                                            </div>
                                         </div>
                                     </div>
                                     <div 
@@ -565,6 +968,7 @@ class Header extends App {
                                         maxWidth: 225,
                                         marginTop: 20,
                                         fontSize: 10, 
+                                        fontWeight: 700,
                                         }}>
                                         Letter Spacing
                                         
@@ -582,22 +986,65 @@ class Header extends App {
                                             {store.fontLetterSpacingState.toFixed(2)}</div>
                                             <div 
                                             style={{ 
-                                                backgroundColor: store.isFontLetterSpacingAuto ? '#000' : '#fff',
+                                                backgroundColor: store.isFontLetterSpacingAuto ? '#000' : '#E4E4E4',
                                                 color : store.isFontLetterSpacingAuto ? '#fff' : '#000',
-                                                marginLeft: 20
+                                                width: 80,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 8,
+                                                fontSize: 10,
                                             }}
                                             onClick={()=> {
                                                 this._toggleFontLetterSpacingAuto();
                                             }}
-                                            >Automation</div></div>
+                                            >
+                                            {store.isFontLetterSpacingAuto ? 'Pause' : 'Play'}
+                                            </div>
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}
+                                            onClick={()=> {
+                                                this.__toggleSecond('font/letter-spacing')
+                                            }}
+                                            >
+                                            {store.secondFontLetterSpacing == 100 ? "x1"  : ""}
+                                            {store.secondFontLetterSpacing == 200 ? "x2"  : ""}
+                                            {store.secondFontLetterSpacing == 300 ? "x3"  : ""}
+                                            </div>
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}>
+                                                ?
+                                            </div>
+                                        </div>
                                     </div>
                                     <div
                                     style={{  
                                         fontFamily: 'Earth_FinalGX' , 
                                         maxWidth: 225,
                                         marginTop: 20,
-
                                         fontSize: 10, 
+                                        fontWeight: 700,
                                         }}>
                                         Line Spacing
                                         <Slider
@@ -609,27 +1056,73 @@ class Header extends App {
                                         onChange={this.handleFontLineSpacingChange}
                                         />
                                         <div className='auto_row'>
-                                            
                                         <div className="font_value">{store.fontLineSpacingState.toFixed(2)}</div>
                                             
                                         <div 
                                         style={{ 
-                                            backgroundColor: store.isFontLineSpacingAuto ? '#000' : '#fff',
+                                            backgroundColor: store.isFontLineSpacingAuto ? '#000' : '#E4E4E4',
                                             color : store.isFontLineSpacingAuto ? '#fff' : '#000',
-                                            marginLeft: 20
+                                            width: 80,
+                                            height: 20, 
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            borderRadius : 8,
+                                            fontSize: 10,
                                         }}
                                         
                                         onClick={()=> {
                                             this._toggleFontLineSpacingAuto();
                                         }}
-                                        >Automation</div></div>
+                                        >
+                                            {store.isFontLineSpacingAuto ? 'Pause' : 'Play'}
+                                            </div>
+                                            
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}
+                                            onClick={()=> {
+                                                this.__toggleSecond('font/line-spacing')
+                                            }}
+                                            >
+                                            {store.secondFontLineSpacing == 100 ? "x1"  : ""}
+                                            {store.secondFontLineSpacing == 200 ? "x2"  : ""}
+                                            {store.secondFontLineSpacing == 300 ? "x3"  : ""}
+                                            </div>
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}>
+                                                ?
+                                            </div>
+                                            </div>
                                     </div>
 
 
                                     <div
                                     style={{  
                                         fontFamily: 'Earth_FinalGX',
-                                        fontSize: 10,  }}>Color
+                                        fontSize: 10,  
+                                        marginBottom: 10, 
+                                        fontWeight: 700,
+                                    }}>Color
                                         <br/>
                                     </div>
                                         <ChromePicker

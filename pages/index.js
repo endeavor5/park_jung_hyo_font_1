@@ -33,7 +33,13 @@ class Index extends Component {
         };
 
     }
-
+    handleChange = (type , e) => {
+        if (type == 'input_content') {
+            this.setState({
+                input_content :  e.target.value
+            })
+        }
+    }
 
     render() {
         return (
@@ -77,7 +83,7 @@ class Index extends Component {
             suppressHydrationWarning>
                 {`
                 .font_value {
-                    width: 270px;
+                    width: calc(100% - 130px);
                 }
                 .auto_row {
                     width: 100%;
