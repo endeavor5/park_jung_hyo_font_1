@@ -49,10 +49,14 @@ class Footer extends Component {
         const { path, footerGap } = this.props;
 
         return (
-            <footer className="footer-wrapper" style={{ marginTop : footerGap == null || footerGap === undefined ? 400 : 400 + footerGap}}>
+            <>
+            {/* <div style={{ width : '100%', height: 200, objectFit: 'cover', }}>
+                <img src={`url(${this.props.prefix}/static/images/earth.jpg)`} />
+            </div> */}
+            <footer className="footer-wrapper" style={{ marginTop : footerGap == null || footerGap === undefined ? 300 : 400 + footerGap}}>
                 <div className="is_desktop_laptop" style={{ flexDirection : 'column'}}>
                 <div className="footer-content footer-content-1">
-                    <div 
+                    {/* <div 
                     className="footer-text cursor_pointer not_draggable"  
                     style={{ fontFamily: "Noto Sans KR"}}
                     // onClick={()=> {
@@ -86,13 +90,14 @@ class Footer extends Component {
                     // onClick={()=> {
                     //     this._goPage('/service/ask')
                     // }}
-                    >고객센터</div>
+                    >고객센터</div> */}
                 </div>
                 <div className="footer-content footer-content-2">
                     <div className="footer-text not_draggable _is_padding_laptop_tablet_phone_xsmall_xxsmall" style={{ fontFamily: "Noto Sans KR", 
                         verticalAlign: 'middle'}}>
-                        해당 페이지의 저작권은 제공처에 있으며, 이를 무단 이용하는 경우 저작권법 등에 따라 처벌될 수 있습니다.  <br/>
-                        Park Jung Hyo.
+                            
+                        해당 페이지의 저작권은 제공처에 있으며, 이를 무단 이용하는 경우 저작권법 등에 따라 처벌될 수 있습니다.  <br/><br/>
+                        Park Jung Hyo. &amp; Studio SEON / OFFICE 201c<br/>
                         Copyright ⓒ 2020. All Rights Reserved.
                     </div>
 
@@ -105,7 +110,7 @@ class Footer extends Component {
                 className="is_tablet_phone_xsmall_xxsmall" 
                  style={{ flexDirection : 'column', alignItems : 'flex-start', justifyContent: 'flex-start'}}
                 >
-                <div 
+                {/* <div 
                     className="footer-text cursor_pointer not_draggable"  
                     style={{ 
                         fontFamily: "Noto Sans KR",
@@ -159,25 +164,31 @@ class Footer extends Component {
                     // onClick={()=> {
                     //     this._goPage('/service/ask')
                     // }}
-                    >고객센터</div>
+                    >고객센터</div> */}
 
                     <div className="footer-text not_draggable" 
                         style={{ 
                             height: 130,
-                            fontFamily: "Noto Sans KR", 
+                            fontFamily: 'Noto Sans KR', 
                             fontSize : 12,
                             marginTop: 24,
                             paddingLeft: 24,
                             paddignRight: 24, 
                             textAlign: "left"
-
                         }}>
-                    </div>
+                        
+                        해당 페이지의 저작권은 제공처에 있으며, <br/>
+                        이를 무단 이용하는 경우 저작권법 등에 따라 처벌될 수 있습니다.  <br/><br/><br/>
+                        Park Jung Hyo. <br/>
+                        Studio SEON / OFFICE 201c<br/>
+                        Copyright ⓒ 2020. All Rights Reserved.
+                    </div> 
 
                     <div style={{height : 32 }}></div>
                 </div>
 
             </footer>
+            </>
         );
     }
 }

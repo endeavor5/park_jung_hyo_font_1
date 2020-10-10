@@ -173,17 +173,13 @@ class CustomDocument extends next_document__WEBPACK_IMPORTED_MODULE_5___default.
   componentDidMount() {}
 
   render() {
-    const prefix = true ? 'http://endeavor5.github.io/park_jung_hyo_font_1' : undefined;
+    const prefix = true ? 'https://endeavor5.github.io/park_jung_hyo_font_1' : undefined;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("html", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(next_document__WEBPACK_IMPORTED_MODULE_5__["Head"], null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("title", null, "Park Jung Hyo."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("meta", {
       name: "description",
       content: "Park Jung Hyo."
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("meta", {
       property: "og:title",
       content: `Park Jung Hyo.`
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
-      rel: "stylesheet",
-      type: "text/css",
-      href: `${prefix}/static/css/font.css`
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("link", {
       rel: "stylesheet",
       href: "https://unpkg.com/react-rangeslider/umd/rangeslider.min.css"
@@ -1164,10 +1160,10 @@ let Footer = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(_class 
       path,
       footerGap
     } = this.props;
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", {
       className: "footer-wrapper",
       style: {
-        marginTop: footerGap == null || footerGap === undefined ? 400 : 400 + footerGap
+        marginTop: footerGap == null || footerGap === undefined ? 300 : 400 + footerGap
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "is_desktop_laptop",
@@ -1176,45 +1172,7 @@ let Footer = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(_class 
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "footer-content footer-content-1"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text cursor_pointer not_draggable",
-      style: {
-        fontFamily: "Noto Sans KR"
-      } // onClick={()=> {
-      //     this._goPage('/service/introduce')
-      // }}
-
-    }, "\uD68C\uC0AC\uC18C\uAC1C"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text-divider"
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text cursor_pointer not_draggable",
-      style: {
-        fontFamily: "Noto Sans KR"
-      } // onClick={()=> {
-      //     this._goPage('/service/privacy')
-      // }}
-
-    }, "\uAC1C\uC778\uC815\uBCF4\uCC98\uB9AC\uBC29\uCE68"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text-divider"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text cursor_pointer not_draggable",
-      style: {
-        fontFamily: "Noto Sans KR"
-      },
-      onClick: () => {
-        this._goPage('/service/faq');
-      }
-    }, "\uC790\uC8FC\uBB3B\uB294\uC9C8\uBB38"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text-divider"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text cursor_pointer not_draggable",
-      style: {
-        fontFamily: "Noto Sans KR"
-      } // onClick={()=> {
-      //     this._goPage('/service/ask')
-      // }}
-
-    }, "\uACE0\uAC1D\uC13C\uD130")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "footer-content footer-content-2"
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "footer-text not_draggable _is_padding_laptop_tablet_phone_xsmall_xxsmall",
@@ -1222,7 +1180,7 @@ let Footer = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(_class 
         fontFamily: "Noto Sans KR",
         verticalAlign: 'middle'
       }
-    }, "\uD574\uB2F9 \uD398\uC774\uC9C0\uC758 \uC800\uC791\uAD8C\uC740 \uC81C\uACF5\uCC98\uC5D0 \uC788\uC73C\uBA70, \uC774\uB97C \uBB34\uB2E8 \uC774\uC6A9\uD558\uB294 \uACBD\uC6B0 \uC800\uC791\uAD8C\uBC95 \uB4F1\uC5D0 \uB530\uB77C \uCC98\uBC8C\uB420 \uC218 \uC788\uC2B5\uB2C8\uB2E4.  ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Park Jung Hyo. Copyright \u24D2 2020. All Rights Reserved.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "\uD574\uB2F9 \uD398\uC774\uC9C0\uC758 \uC800\uC791\uAD8C\uC740 \uC81C\uACF5\uCC98\uC5D0 \uC788\uC73C\uBA70, \uC774\uB97C \uBB34\uB2E8 \uC774\uC6A9\uD558\uB294 \uACBD\uC6B0 \uC800\uC791\uAD8C\uBC95 \uB4F1\uC5D0 \uB530\uB77C \uCC98\uBC8C\uB420 \uC218 \uC788\uC2B5\uB2C8\uB2E4.  ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Park Jung Hyo. & Studio SEON / OFFICE 201c", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Copyright \u24D2 2020. All Rights Reserved.")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       style: {
         height: 80
       }
@@ -1234,71 +1192,21 @@ let Footer = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(_class 
         justifyContent: 'flex-start'
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text cursor_pointer not_draggable",
-      style: {
-        fontFamily: "Noto Sans KR",
-        fontSize: 14,
-        marginTop: 32,
-        marginLeft: 24
-      } // onClick={()=> {
-      //     this._goPage('/service/introduce')
-      // }}
-
-    }, "\uD68C\uC0AC\uC18C\uAC1C"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text-divider"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text cursor_pointer not_draggable",
-      style: {
-        fontFamily: "Noto Sans KR",
-        fontSize: 14,
-        marginTop: 12,
-        marginLeft: 24
-      } // onClick={()=> {
-      //     this._goPage('/service/privacy')
-      // }}
-
-    }, "\uAC1C\uC778\uC815\uBCF4\uCC98\uB9AC\uBC29\uCE68"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text-divider"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text cursor_pointer not_draggable",
-      style: {
-        fontFamily: "Noto Sans KR",
-        fontSize: 14,
-        marginTop: 12,
-        marginLeft: 24
-      } // onClick={()=> {
-      //     this._goPage('/service/faq')
-      // }}
-
-    }, "\uC790\uC8FC\uBB3B\uB294\uC9C8\uBB38"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text-divider"
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-      className: "footer-text cursor_pointer not_draggable",
-      style: {
-        fontFamily: "Noto Sans KR",
-        fontSize: 14,
-        marginTop: 12,
-        marginLeft: 24
-      } // onClick={()=> {
-      //     this._goPage('/service/ask')
-      // }}
-
-    }, "\uACE0\uAC1D\uC13C\uD130"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       className: "footer-text not_draggable",
       style: {
         height: 130,
-        fontFamily: "Noto Sans KR",
+        fontFamily: 'Noto Sans KR',
         fontSize: 12,
         marginTop: 24,
         paddingLeft: 24,
         paddignRight: 24,
         textAlign: "left"
       }
-    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+    }, "\uD574\uB2F9 \uD398\uC774\uC9C0\uC758 \uC800\uC791\uAD8C\uC740 \uC81C\uACF5\uCC98\uC5D0 \uC788\uC73C\uBA70, ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "\uC774\uB97C \uBB34\uB2E8 \uC774\uC6A9\uD558\uB294 \uACBD\uC6B0 \uC800\uC791\uAD8C\uBC95 \uB4F1\uC5D0 \uB530\uB77C \uCC98\uBC8C\uB420 \uC218 \uC788\uC2B5\uB2C8\uB2E4.  ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Park Jung Hyo. ", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Studio SEON / OFFICE 201c", /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), "Copyright \u24D2 2020. All Rights Reserved."), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
       style: {
         height: 32
       }
-    })));
+    }))));
   }
 
 }, _temp)) || _class;

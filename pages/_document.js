@@ -44,7 +44,7 @@ class CustomDocument extends Document {
 
 
     render() {
-        const prefix = process.env.NODE_ENV === 'production' ? 'http://endeavor5.github.io/park_jung_hyo_font_1' : '';
+        const prefix = process.env.NODE_ENV === 'production' ? 'https://endeavor5.github.io/park_jung_hyo_font_1' : '';
     
         return (
             <html>
@@ -55,7 +55,6 @@ class CustomDocument extends Document {
                         content="Park Jung Hyo."
                     />
                     <meta property="og:title" content={`Park Jung Hyo.`} />
-                    <link rel="stylesheet" type="text/css" href={`${prefix}/static/css/font.css`} />
                     <link rel="stylesheet" href="https://unpkg.com/react-rangeslider/umd/rangeslider.min.css" />
                 </Head>
                 <body>
