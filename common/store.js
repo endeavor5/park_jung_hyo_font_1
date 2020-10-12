@@ -17,7 +17,7 @@ class Store {
     @observable secondFontSize = 100;
 
     @observable minFontWeight = 100;
-    @observable maxFontWeight = 900;
+    @observable maxFontWeight = 595;
     @observable unitFontWeight = 10;
     @observable directionFontWeight = 'positive'; // negative;
     @observable secondFontWeight = 100;

@@ -806,7 +806,10 @@ class Header extends App {
                                     this._goPage('/');
                                 }}
                             >
-                                    PARK JUNG HYO's <br/>1st Planet : Earth
+                                <div style={{ fontSize: 15 }}>
+                                    PARK JUNG HYO's 1st Planet<br/>2020 Typeface Earth
+                                </div>
+                                    
                             </div>
                             
                     <div >
@@ -950,7 +953,7 @@ class Header extends App {
                                         
                                         <Slider
                                         min={100}
-                                        max={900}
+                                        max={595}
                                         value={store.fontWeightState}
                                         style={{ color: '#000'}}
                                         onChangeStart={this.handleChangeStart}
