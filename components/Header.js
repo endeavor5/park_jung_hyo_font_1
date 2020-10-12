@@ -638,12 +638,12 @@ class Header extends App {
                     z-index: 9998;
                 }
                 .mobile_drawer_menu_left {
-                    width: calc(100% - 400px);
+                    width: calc(100% - 300px);
                     height: 100%;
                 }
 
                 .mobile_drawer_menu_inner {
-                    width: 400px;
+                    width: 300px;
                     height: 100%;
                     min-width: 200px;
                     display: flex;
@@ -789,7 +789,7 @@ class Header extends App {
                         {/* Drawer 메뉴 */}
                         <div id="mobile_drawer_menu" 
                         className="mobile_drawer_menu" >
-                            <div id="mobile_drawer_menu_left" style={{ width: 'calc(100% - 400px)', height: '100%'}}></div>
+                            <div id="mobile_drawer_menu_left" style={{ width: 'calc(100% - 300px)', height: '100%'}}></div>
                             <div  className="mobile_drawer_menu_inner">
 
                             <div id="menu-item-1" 
@@ -800,13 +800,13 @@ class Header extends App {
                                 fontWeight: path === '/' ? '600' : '500',
                                 textDecoration: path === '/' ? 'underline' : 'none',
                                 marginTop : 80,
-                                marginLeft : 24,
+                                marginLeft : 40,
                                 }}
                                 onClick={()=> {
                                     this._goPage('/');
                                 }}
                             >
-                                    PARK JUNG HYO's 1st Planet : Earth
+                                    PARK JUNG HYO's <br/>1st Planet : Earth
                             </div>
                             
                     <div >
@@ -1206,6 +1206,7 @@ class Header extends App {
                                             >
                                                 Print
                                             </div>
+                                            <div style={{ height: 100 , }}></div>
                                     </div>
 
                                 

@@ -15,7 +15,8 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            input_content : store.isHello ? 'hello, everyone!' : 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz ',
+            input_content : 'Font Contents',
+            // store.isHello ? 'hello, everyone!' : 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz ',
 
             footerGap : 200, 
 
@@ -124,7 +125,7 @@ class Index extends Component {
                                     style={{  
                                         fontSize : store.fontSizeState, 
                                         fontWeight:  store.fontWeightState,
-                                        color: store.isHello ?"#43FC9F" :store.fontColorState,
+                                        color: store.isHello ?"#000" :store.fontColorState,
                                         letterSpacing: store.fontLetterSpacingState, 
                                         lineHeight: store.fontLineSpacingState,
                                         wordWrap: 'wrap',
