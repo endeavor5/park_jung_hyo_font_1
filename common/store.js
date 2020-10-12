@@ -6,6 +6,8 @@ class Store {
     @observable token = '';
     @observable profile = [];
 
+    @observable isHello = true;
+
     @observable isPlayAll = false;
 
     @observable minFontSize = 0;

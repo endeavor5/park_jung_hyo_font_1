@@ -11,7 +11,7 @@ class CustomDocument extends Document {
     constructor(props) {
         super(props);
         this.state = {
-            sample_images : [
+            sample_images: [
                 'sample_001.jpg',
             ]
         };
@@ -42,20 +42,20 @@ class CustomDocument extends Document {
         }
     };
 
-
     render() {
         const prefix = process.env.NODE_ENV === 'production' ? 'https://endeavor5.github.io/park_jung_hyo_font_1' : '';
-    
+
         return (
             <html>
                 <Head>
-                    <title>Park Jung Hyo.</title>
+                    <title>EARTH - Park Jung Hyo.</title>
                     <meta
                         name="description"
-                        content="Park Jung Hyo."
+                        content="EARTH - Park Jung Hyo."
                     />
-                    <meta property="og:title" content={`Park Jung Hyo.`} />
+                    <meta property="og:title" content={`EARTH - Park Jung Hyo.`} />
                     <link rel="stylesheet" href="https://unpkg.com/react-rangeslider/umd/rangeslider.min.css" />
+
                 </Head>
                 <body>
                     {/* Header on Each files */}
@@ -63,9 +63,9 @@ class CustomDocument extends Document {
                         <Main />
                     </div>
                     <NextScript />
-                    <style 
+                    <style
                         jsx="true"
-                        global="true" 
+                        global="true"
                         suppressHydrationWarning>{`
                         @font-face {
                             font-family: "Earth_FinalGX";
@@ -275,7 +275,6 @@ class CustomDocument extends Document {
                         align-items: center;
                         padding-left: 20px;
                         padding-right: 20px;
-                        max-width: 1200px;
                     }
 
                     .header-left {

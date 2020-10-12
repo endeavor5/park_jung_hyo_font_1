@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { observable, toJS } from 'mobx';
-import { observer } from 'mobx-react';
+import { observable, toJS , reaction} from 'mobx';
+import { observer,  } from 'mobx-react';
 import Router from 'next/router';
 import Header from "../components/Header";
 import Navbar from "../components/Header";
@@ -15,7 +15,7 @@ class Index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            input_content : 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz ',
+            input_content : store.isHello ? 'hello, everyone!' : 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz ',
 
             footerGap : 200, 
 
@@ -34,11 +34,66 @@ class Index extends Component {
 
     }
     handleChange = (type , e) => {
+        store.isHello = false;
         if (type == 'input_content') {
             this.setState({
                 input_content :  e.target.value
             })
         }
+    }
+
+    resize =(obj) => {
+        // console.log(obj.target.style);
+    }
+    
+
+    cmaTextareaSize =(obj, bsize) => { // 객체명, 기본사이즈
+        var sTextarea = document.getElementById(obj);
+        // var csize = (sTextarea.scrollHeight >= bsize) ? sTextarea.scrollHeight+"px" : bsize+"px";
+        // sTextarea.style.height = bsize+"px"; 
+        // sTextarea.style.height = csize;
+        sTextarea.style.height = "1px";
+        sTextarea.style.height = (12+sTextarea.scrollHeight)+"px";
+    }
+
+    componentDidMount() {
+
+        
+        //fontSizeState
+        // fontWeightState
+        // fontColorState
+        // fontLetterSpacingState
+        // fontLineSpacingState
+
+        reaction(
+            () => store.fontSizeState,
+            (value, reaction) => {
+            //   console.log(`a 값이 ${value} 로 바뀌었네요!`);
+                this.cmaTextareaSize('input_content', 10);
+            }
+          );
+          reaction(
+              () => store.fontWeightState,
+              (value, reaction) => {
+              //   console.log(`a 값이 ${value} 로 바뀌었네요!`);
+                  this.cmaTextareaSize('input_content', 10);
+              }
+            );
+            reaction(
+                () => store.fontLetterSpacingState,
+                (value, reaction) => {
+                //   console.log(`a 값이 ${value} 로 바뀌었네요!`);
+                    this.cmaTextareaSize('input_content', 10);
+                }
+              );
+              reaction(
+                  () => store.fontLineSpacingState,
+                  (value, reaction) => {
+                  //   console.log(`a 값이 ${value} 로 바뀌었네요!`);
+                      this.cmaTextareaSize('input_content', 10);
+                  }
+                );
+
     }
 
     render() {
@@ -49,41 +104,45 @@ class Index extends Component {
         return (
             <>
             <Header prefix={prefix}></Header>
-                <div className=" " style={{ width: '100%', marginTop: 100, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-                <div className="intro_text">
-                    "EARTH" Font Designed by Park Jung Hyo. <br/>in Seoul / South Korea.<br/>
-                    <br/> 
-                    </div><div className="intro_text_2">
-                        Website Desinged, Developed and Supported <br/>
-                        By Studio SEON / OFFICE 201c <br/>
-                        in Seoul/KR
-                        (OH SEONG JIN)
-                    </div>
+                <div className=" " style={{ width: '100%', marginTop: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
                     <div className="font_display_container"  style={{  marginTop: 40, }}>
 
-                        <div className="font_display_area" style={{  
+                        {/* <div className="font_display_area" 
+                        style={{  
                             fontSize : store.fontSizeState,
-                            fontWeight: store.fontWeightState,}}>
+                            fontWeight: store.fontWeightState,
+                            border: store.isHello ?  "solid 1px #eaeaea" :"solid 5px #43FC9F",
+                        }}> */}
+
+
                             <textarea
                                     className="input_content"
                                     placeholder="Font Contents"
                                     name="input_content"
+                                    id="input_content"
                                     value={this.state.input_content}
                                     style={{  
                                         fontSize : store.fontSizeState, 
-                                        fontWeight: store.fontWeightState,
-                                        color: store.fontColorState,
+                                        fontWeight:  store.fontWeightState,
+                                        color: store.isHello ?"#43FC9F" :store.fontColorState,
                                         letterSpacing: store.fontLetterSpacingState, 
                                         lineHeight: store.fontLineSpacingState,
                                         wordWrap: 'wrap',
                                         whiteSpace: 'pre-wrap',
                                         fontFamily: 'Earth_FinalGX' ,
+                                        textAlign: 'center',
+                                        verticalAlign: 'middle',
+                                        display: 'inline-block',
                                     }}
                                     onChange={e => {
-                                    this.handleChange('input_content', e);
+                                        this.handleChange('input_content', e);
+                                    }}
+                                    onKeyUp={(e)=>{
+                                        console.log(e.target.value);
+                                        this.cmaTextareaSize('input_content', 10)
                                     }}
                                 /> 
-                        </div>
+                        {/* </div> */}
                     </div>
                 <div className="intro_text" style={{ marginTop : 100}}>
 
@@ -95,8 +154,15 @@ class Index extends Component {
                     <br/>
                     감사합니다.<br/> <br/> <br/> 
                     </div>
-            <div style={{ height: 150 }}></div>
-
+            <div className="intro_text">
+                    "EARTH" Font Designed by Park Jung Hyo. <br/>in Seoul / South Korea.<br/>
+                    <br/> 
+                    </div><div className="intro_text_2">
+                        Website Desinged, Developed and Supported <br/>
+                        By Studio SEON / OFFICE 201c <br/>
+                        in Seoul/KR
+                        (OH SEONG JIN)
+                    </div>
             <div className="intro_text" style={{ marginTop : 100}}>
                      What is Variable Font
                     </div>
@@ -203,7 +269,6 @@ class Index extends Component {
                     .input_wrapper {
                         width: 100%;
                         height: 100%;
-                        border: solid 1px #eaeaea;
                         background-color: #ffffff;
                         display: flex;
                         align-items: center;
@@ -211,7 +276,6 @@ class Index extends Component {
                     .input_content {
                         width : 100%;
                         height: 100%;
-                        min-height: 600px;
                         resize: none;
                         border : none;
                         outline : none;
@@ -232,7 +296,6 @@ class Index extends Component {
                         width: 300px;
                         min-height: 600px;
                         height: auto;
-                        border: 1px solid #aaa;
                         display: flex;
                         align-items: center;
                         justify-content: center;
@@ -244,7 +307,6 @@ class Index extends Component {
                         width: calc(100% - 40px);
                         max-width: 1024px;
                         min-height: 600px;
-                        border: 1px solid #aaa;
                         display: flex;
                         align-items: center;
                         justify-content: center;

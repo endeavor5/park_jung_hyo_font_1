@@ -63,6 +63,7 @@ class Header extends App {
             mobile_drawer_menu.classList.toggle('open');
         });
         mobile_drawer_menu_left.addEventListener('click',  () => {
+            // const icon = document.getElementsByClassName("icon");
             icon[0].classList.toggle('close');
             mobile_drawer_menu.classList.toggle('open');
         });
@@ -517,6 +518,21 @@ class Header extends App {
         }
     }
 
+    onPrint  = () => {
+        const html = document.querySelector('html');
+        const printContents = document.querySelector('.font_display_container').innerHTML;
+        const printDiv = document.createElement('DIV');
+        printDiv.className = 'print-div';
+         
+        html.appendChild(printDiv);
+        printDiv.innerHTML = printContents;
+        document.body.style.display = 'none';
+        window.print();
+        document.body.style.display = 'block';
+        printDiv.style.display = 'none';
+
+        console.log('TEST')
+    }
 
     render() {
         const { path } = this.props;
@@ -554,6 +570,14 @@ class Header extends App {
                 jsx="true"
                 global="true" 
                 suppressHydrationWarning>{`
+                textarea {
+                    width: 100%;
+                    resize: none;
+                    overflow-y: hidden; /* prevents scroll bar flash */
+                    padding: 1.1em; /* prevents text jump on Enter keypress */
+                    padding-bottom: 0.2em;
+                    line-height: 1.6;
+                  }
 
                 a:link {color: black;}      /* unvisited link */
                 a:visited {color: black;}   /* visited link */
@@ -737,7 +761,7 @@ class Header extends App {
                 }
             `}</style>
             <div id="header">
-                <div className="header-wrapper is_desktop_laptop_tablet_phone_xsmall_xxsmall  max-width-wrapper">
+                <div className="header-wrapper is_desktop_laptop_tablet_phone_xsmall_xxsmall">
                     <div className="header-left">
                     </div>
                     <div 
@@ -751,7 +775,7 @@ class Header extends App {
                     }}>
                         <a href="/" style={{ 
                                 fontFamily: "Earth_FinalGX",}} >
-                            PARK JUNG HYO.
+                            EARTH
                         </a>
                     </div>
                     <div className="header-right">
@@ -1157,7 +1181,33 @@ class Header extends App {
                                             onChangeComplete={ this.handleChangeComplete }
                                             
                                         />
-                                </div>
+                                    <div 
+                                            style={{ 
+                                                fontFamily: 'Earth_FinalGX' , 
+                                                backgroundColor:  '#E4E4E4',
+                                                color : '#000',
+                                                width: 80,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 8,
+                                                fontSize: 10,
+                                                marginTop: 45,
+                                                fontWeight: 600, 
+                                            }}
+                                            onClick={()=> {
+                                                const icon = document.getElementsByClassName("icon");
+                                                const mobile_drawer_menu = document.getElementById("mobile_drawer_menu");
+                                                icon[0].classList.toggle('close');
+                                                mobile_drawer_menu.classList.toggle('open');
+                                                this.onPrint()
+                                            }}
+                                            >
+                                                Print
+                                            </div>
+                                    </div>
+
                                 
                             <div className="font_display_controller"></div>
                         </div>
