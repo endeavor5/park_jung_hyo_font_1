@@ -53,7 +53,7 @@ class Footer extends Component {
             {/* <div style={{ width : '100%', height: 200, objectFit: 'cover', }}>
                 <img src={`url(${this.props.prefix}/static/images/earth.jpg)`} />
             </div> */}
-            <footer className="footer-wrapper" style={{ marginTop : footerGap == null || footerGap === undefined ? 300 : 400 + footerGap}}>
+            <footer className="footer-wrapper" style={{ marginTop : footerGap == null || footerGap === undefined ? 50 : 50 + footerGap}}>
                 <div className="is_desktop_laptop" style={{ flexDirection : 'column'}}>
                 <div className="footer-content footer-content-1">
                     {/* <div 

@@ -186,7 +186,25 @@ class Index extends Component {
                     Multiple master fonts, however, required the user to generate a specific "instance" of the font for particular variation-axis values before it could be used. This is not required for OpenType variable fonts, however: named or arbitrary design instances can be selected and used on demand.
 
                     </div>
+            <div className="intro_text" style={{ marginTop : 100}}>
+                     What is Different
+                    </div>
+                    <br/> 
+                    <div  className="intro_text_2">
+                    Earth is a Sans serif typeface.<br/> 
+                    The goal was to create a contemporary typeface with some unique letter form, <br/>
+                    and based on the concept of earth and sprout. <br/>
+                    It is characterized by straight lines and curves the look like thing measured with a ruler.<br/>
+                    This typeface is more effective when used for titles than for text. <br/>
+                    The most prominent feature of earth is the extension of the ascenders and descenders. <br/>
+                    This font is a variable font has some extensible shape of small letters. <br/>
+                    This website is designed to test the typeface Earth. <br/>
+                    You can adjust tracking, leading, and text color. <br/>
+                    Of course, you can choose the length of the letter form by adjusting the width level.<br/>
+                    </div>
                 </div>
+
+                
             <div style={{ height: 10 }}></div>
             <Footer prefix={prefix} path={'/'} footerGap={this.state.footerGap}/>
 
