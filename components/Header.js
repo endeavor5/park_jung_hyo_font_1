@@ -953,7 +953,7 @@ class Header extends App {
                                         
                                         <Slider
                                         min={100}
-                                        max={595}
+                                        max={500}
                                         value={store.fontWeightState}
                                         style={{ color: '#000'}}
                                         onChangeStart={this.handleChangeStart}
