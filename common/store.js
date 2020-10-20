@@ -43,7 +43,7 @@ class Store {
 
 
     @observable defaultfontVariationSettings_widthState = 100;
-    @observable defaultfontVariationSettings_weightState = 100;
+    @observable defaultfontVariationSettings_weightState = 0;
     @observable defaultfontVariationSettings_italicState = 0;
 
 
@@ -55,7 +55,7 @@ class Store {
     @observable fontState = null;
 
     @observable fontVariationSettings_widthState  = 100; // 100 - 150
-    @observable fontVariationSettings_weightState = 100; // 100 - 200
+    @observable fontVariationSettings_weightState = 0; // 100 - 200
     @observable fontVariationSettings_italicState = 0; // 0 - 100
     
     @observable minfontVariationSettings_widthState = 100;
@@ -64,9 +64,9 @@ class Store {
     @observable directionfontVariationSettings_widthState = 'positive'; // negative;
     @observable secondfontVariationSettings_widthState = 100;
 
-    @observable minfontVariationSettings_weightState = 100;
+    @observable minfontVariationSettings_weightState = 0;
     @observable maxfontVariationSettings_weightState = 500;
-    @observable unitfontVariationSettings_weightState = 1;
+    @observable unitfontVariationSettings_weightState = 5;
     @observable directionfontVariationSettings_weightState = 'positive'; // negative;
     @observable secondfontVariationSettings_weightState = 100;
 
