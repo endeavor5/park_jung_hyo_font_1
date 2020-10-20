@@ -80,6 +80,16 @@ class Header extends App {
         if (this.fontLineTimer) {
             clearInterval(this.fontLineTimer);
         }
+        // 
+        if (this.fontVSWidthTimer) {
+            clearInterval(this.fontVSWidthTimer);
+        }
+        if (this.fontVSWeightTimer) {
+            clearInterval(this.fontVSWeightTimer);
+        }
+        if (this.fontVSItalicTimer) {
+            clearInterval(this.fontVSItalicTimer);
+        }
     }
 
     componentWillUnmount () {
@@ -94,6 +104,16 @@ class Header extends App {
         }
         if (this.fontLineTimer) {
             clearInterval(this.fontLineTimer);
+        }
+        // 
+        if (this.fontVSWidthTimer) {
+            clearInterval(this.fontVSWidthTimer);
+        }
+        if (this.fontVSWeightTimer) {
+            clearInterval(this.fontVSWeightTimer);
+        }
+        if (this.fontVSItalicTimer) {
+            clearInterval(this.fontVSItalicTimer);
         }
     }
 
@@ -176,6 +196,65 @@ class Header extends App {
         }, 200 * ( 100 /  store.secondFontLineSpacing) );
     }
 
+    __registerAutoFontVS_width =() => {
+
+        this.fontVSWidthTimer = setInterval( () => { 
+            if (store.directionfontVariationSettings_widthState == 'positive') {
+                store.fontVariationSettings_widthState = store.fontVariationSettings_widthState + store.unitfontVariationSettings_widthState
+            } else {
+                store.fontVariationSettings_widthState = store.fontVariationSettings_widthState - store.unitfontVariationSettings_widthState
+            }
+    
+            if (store.fontVariationSettings_widthState >= store.maxfontVariationSettings_widthState) {
+                store.directionfontVariationSettings_widthState = 'negative'
+            } 
+            
+            if (store.fontVariationSettings_widthState <= store.minfontVariationSettings_widthState) {
+                store.directionfontVariationSettings_widthState = 'positive'
+            } 
+            
+        }, 200 * ( 100 /  store.secondfontVariationSettings_widthState) );
+    }
+
+    __registerAutoFontVS_weight =() => {
+
+        this.fontVSWeightTimer = setInterval( () => { 
+            if (store.directionfontVariationSettings_weightState == 'positive') {
+                store.fontVariationSettings_weightState= store.fontVariationSettings_weightState + store.unitfontVariationSettings_weightState
+            } else {
+                store.fontVariationSettings_weightState = store.fontVariationSettings_weightState - store.unitfontVariationSettings_weightState
+            }
+    
+            if (store.fontVariationSettings_weightState >= store.maxfontVariationSettings_weightState) {
+                store.directionfontVariationSettings_weightState = 'negative'
+            } 
+            
+            if (store.fontVariationSettings_weightState <= store.minfontVariationSettings_weightState) {
+                store.directionfontVariationSettings_weightState = 'positive'
+            } 
+            
+        }, 200 * ( 100 /  store.secondfontVariationSettings_weightState) );
+    }
+
+    __registerAutoFontVS_italic =() => {
+
+        this.fontVSItalicTimer = setInterval( () => { 
+            if (store.directionfontVariationSettings_italicState== 'positive') {
+                store.fontVariationSettings_italicState= store.fontVariationSettings_italicState + store.unitfontVariationSettings_italicState
+            } else {
+                store.fontVariationSettings_italicState = store.fontVariationSettings_italicState - store.unitfontVariationSettings_italicState
+            }
+    
+            if (store.fontVariationSettings_italicState >= store.maxfontVariationSettings_italicState) {
+                store.directionfontVariationSettings_italicState = 'negative'
+            } 
+            
+            if (store.fontVariationSettings_italicState <= store.minfontVariationSettings_italicState) {
+                store.directionfontVariationSettings_italicState = 'positive'
+            } 
+            
+        }, 200 * ( 100 /  store.secondfontVariationSettings_italicState) );
+    }
 
 
 
@@ -207,6 +286,25 @@ class Header extends App {
         //   console.log(event.target.value);
         // this.setState({ fontLineSpacingState: event  })
         store.fontLineSpacingState = event;
+      };
+
+     handleFVSWidthChange = event => {
+        // this.setState({  fontWeightState: value  })
+        store.fontVariationSettings_widthState = event;
+      };
+
+
+      handleFVSWeightChange = event => {
+        //   console.log(event.target.value);
+        // this.setState({  fontLetterSpacingState: event  })
+        store.fontVariationSettings_weightState = event;
+      };
+
+
+      handleFVSItalicChange = event => {
+        //   console.log(event.target.value);
+        // this.setState({ fontLineSpacingState: event  })
+        store.fontVariationSettings_italicState = event;
       };
 
       _toggleFontSizeAuto  = event => {
@@ -298,6 +396,65 @@ class Header extends App {
         } 
       }
 
+      _toggleFVSWidthAuto = event => {
+
+        if (event == null || event === undefined) {
+            // this.setState({  isFontLineSpacingAuto: !this.state.isFontLineSpacingAuto }) 
+            if (store.isFontVS_WidthAuto == true) {
+                clearInterval(this.fontVSWidthTimer);
+            } else {
+                clearInterval(this.fontVSWidthTimer);
+                this.__registerAutoFontVS_width();
+            }
+            store.isFontVS_WidthAuto = !store.isFontVS_WidthAuto;
+        } else {
+            if (event == true) {
+                store.isFontVS_WidthAuto = true;
+            } else { 
+                store.isFontVS_WidthAuto = false;
+            }
+        } 
+      }
+
+      _toggleFVSWeightAuto = event => {
+
+        if (event == null || event === undefined) {
+            // this.setState({  isFontLineSpacingAuto: !this.state.isFontLineSpacingAuto }) 
+            if (store.isFontVS_WeightAuto == true) {
+                clearInterval(this.fontVSWeightTimer);
+            } else {
+                clearInterval(this.fontVSWeightTimer);
+                this.__registerAutoFontVS_weight();
+            }
+            store.isFontVS_WeightAuto = !store.isFontVS_WeightAuto;
+        } else {
+            if (event == true) {
+                store.isFontVS_WeightAuto = true;
+            } else { 
+                store.isFontVS_WeightAuto = false;
+            }
+        } 
+      }
+
+      _toggleFVSItalicAuto = event => {
+
+        if (event == null || event === undefined) {
+            // this.setState({  isFontLineSpacingAuto: !this.state.isFontLineSpacingAuto }) 
+            if (store.isFontVS_ItalicAuto == true) {
+                clearInterval(this.fontVSItalicTimer);
+            } else {
+                clearInterval(this.fontVSItalicTimer);
+                this.__registerAutoFontVS_italic();
+            }
+            store.isFontVS_ItalicAuto = !store.isFontVS_ItalicAuto;
+        } else {
+            if (event == true) {
+                store.isFontVS_ItalicAuto = true;
+            } else { 
+                store.isFontVS_ItalicAuto = false;
+            }
+        } 
+      }
 
 
     _bannerGoItem = (index) => {
@@ -384,6 +541,9 @@ class Header extends App {
             store.isFontWeightAuto = false;
             store.isFontLineSpacingAuto = false;
             store.isFontLetterSpacingAuto = false;
+            store.isFontVS_WidthAuto = false;
+            store.isFontVS_WeightAuto = false;
+            store.isFontVS_ItalicAuto = false;
 
             if (this.fontSizeTimer) {
                 clearInterval(this.fontSizeTimer);
@@ -398,12 +558,26 @@ class Header extends App {
                 clearInterval(this.fontLineTimer);
             }
             
+            // 
+            if (this.fontVSWidthTimer) {
+                clearInterval(this.fontVSWidthTimer);
+            }
+            if (this.fontVSWeightTimer) {
+                clearInterval(this.fontVSWeightTimer);
+            }
+            if (this.fontVSItalicTimer) {
+                clearInterval(this.fontVSItalicTimer);
+            }
         } else {
             store.isPlayAll = true
             store.isFontSizeAuto = true;
             store.isFontWeightAuto = true;
             store.isFontLineSpacingAuto = true;
             store.isFontLetterSpacingAuto = true;
+            store.isFontVS_WidthAuto = true;
+            store.isFontVS_WeightAuto = true;
+            store.isFontVS_ItalicAuto = true;
+
             if (store.isFontSizeAuto == false) {
                 clearInterval(this.fontSizeTimer);
             } else {
@@ -430,6 +604,30 @@ class Header extends App {
                 this.__registerAutoFontLine();
             }
 
+
+            // VS
+            if (store.isFontVS_WidthAuto == false) {
+                clearInterval(this.fontVSWidthTimer);
+            } else {
+                clearInterval(this.fontVSWidthTimer);
+                this.__registerAutoFontVS_width();
+            }
+            
+            if (store.isFontVS_WeightAuto == false) {
+                clearInterval(this.fontVSWeightTimer);
+            } else {
+                clearInterval(this.fontVSWeightTimer);
+                this.__registerAutoFontVS_weight();
+            }
+            
+            if (store.isFontVS_ItalicAuto == false) {
+                clearInterval(this.fontVSItalicTimer);
+            } else {
+                clearInterval(this.fontVSItalicTimer);
+                this.__registerAutoFontVS_italic();
+            }
+            
+
         }
     }
     __toggleResetAll  = () => {
@@ -448,6 +646,14 @@ class Header extends App {
         store.isFontWeightAuto = false;
         store.isFontLineSpacingAuto = false;
         store.isFontLetterSpacingAuto = false;
+        
+        // VS
+        store.fontVariationSettings_widthState =  store.defaultfontVariationSettings_widthState 
+        store.fontVariationSettings_weightState = store.defaultfontVariationSettings_weightState
+        store.fontVariationSettings_italicState = store.defaultfontVariationSettings_italicState
+        store.isFontVS_WidthAuto = false;
+        store.isFontVS_WeightAuto = false;
+        store.isFontVS_ItalicAuto = false;
 
 
         store.directionFontSize = 'positive'; // negative;
@@ -458,6 +664,14 @@ class Header extends App {
         store.secondFontLetterSpacing  = 100;
         store.directionFontLineSpacing = 'positive'; // negative;
         store.secondFontLineSpacing  = 100;
+
+        // VS
+        store.directionfontVariationSettings_widthState = 'positive'; // negative;
+        store.secondfontVariationSettings_widthState  = 100;
+        store.directionfontVariationSettings_weightState= 'positive'; // negative;
+        store.secondfontVariationSettings_weightState =  100;
+        store.directionfontVariationSettings_italicState= 'positive'; // negative;
+        store.secondfontVariationSettings_italicState =  100;
         
         if (this.fontSizeTimer) {
             clearInterval(this.fontSizeTimer);
@@ -471,6 +685,16 @@ class Header extends App {
         if (this.fontLineTimer) {
             clearInterval(this.fontLineTimer);
         }
+        // 
+        if (this.fontVSWidthTimer) {
+            clearInterval(this.fontVSWidthTimer);
+        }
+        if (this.fontVSWeightTimer) {
+            clearInterval(this.fontVSWeightTimer);
+        }
+        if (this.fontVSItalicTimer) {
+            clearInterval(this.fontVSItalicTimer);
+        }
     }
 
 
@@ -481,6 +705,9 @@ class Header extends App {
         param == 'font/weight' ? unit = store.secondFontWeight : null;
         param == 'font/letter-spacing' ? unit = store.secondFontLetterSpacing : null;
         param == 'font/line-spacing' ? unit = store.secondFontLineSpacing : null;
+        param == 'font/vs/width' ? unit = store.secondfontVariationSettings_widthState : null;
+        param == 'font/vs/weight' ? unit = store.secondfontVariationSettings_weightState : null;
+        param == 'font/vs/italic' ? unit = store.secondfontVariationSettings_italicState : null;
         
         if (unit == 100 ) {unit = 200 } 
         else if (unit == 200 ) {unit = 300 } 
@@ -490,6 +717,9 @@ class Header extends App {
         param == 'font/weight' ?  store.secondFontWeight = unit : null;
         param == 'font/letter-spacing' ?  store.secondFontLetterSpacing = unit : null;
         param == 'font/line-spacing' ?  store.secondFontLineSpacing = unit : null;
+        param == 'font/vs/width' ? store.secondfontVariationSettings_widthState = unit : null;
+        param == 'font/vs/weight' ? store.secondfontVariationSettings_weightState = unit : null;
+        param == 'font/vs/italic' ?  store.secondfontVariationSettings_italicState = unit : null;
 
         if (store.isFontSizeAuto == false) {
             clearInterval(this.fontSizeTimer);
@@ -515,6 +745,26 @@ class Header extends App {
         } else {
             clearInterval(this.fontLineTimer);
             this.__registerAutoFontLine();
+        }
+        // VS
+
+        if (store.isFontVS_WidthAuto == false) {
+            clearInterval(this.fontVSWidthTimer);
+        } else {
+            clearInterval(this.fontVSWidthTimer);
+            this.__registerAutoFontVS_width();
+        }
+        if (store.isFontVS_WeightAuto== false) {
+            clearInterval(this.fontVSWeightTimer);
+        } else {
+            clearInterval(this.fontVSWeightTimer);
+            this.__registerAutoFontVS_weight();
+        }
+        if (store.isFontVS_ItalicAuto== false) {
+            clearInterval(this.fontVSItalicTimer);
+        } else {
+            clearInterval(this.fontVSItalicTimer);
+            this.__registerAutoFontVS_italic();
         }
     }
 
@@ -878,8 +1128,8 @@ class Header extends App {
                                     }}>
                                         Font Size
                                         <Slider
-                                        min={0}
-                                        max={100}
+                                        min={store.minFontSize}
+                                        max={store.maxFontSize}
                                         value={store.fontSizeState}
                                         style={{ color: '#000'}}
                                         onChange={this.handleFontSizeChange}
@@ -942,7 +1192,7 @@ class Header extends App {
                                             </div>
                                     </div>
                                     </div>
-                                    <div 
+                                    {/* <div 
                                     style={{  
                                         fontFamily: 'Earth_FinalGX' , 
                                         maxWidth: 225,
@@ -1015,7 +1265,231 @@ class Header extends App {
                                                 ?
                                             </div>
                                         </div>
+                                    </div> */}
+                                    {/* <div 
+                                    style={{  
+                                        fontFamily: 'Earth_FinalGX' , 
+                                        maxWidth: 225,
+                                        fontSize: 10, 
+                                        fontWeight: 700,
+                                        marginTop: 20}}>
+                                        VARIABLE Width
+                                        
+                                        <Slider
+                                        min={store.minfontVariationSettings_widthState}
+                                        max={store.maxfontVariationSettings_widthState}
+                                        value={store.fontVariationSettings_widthState}
+                                        style={{ color: '#000'}}
+                                        onChangeStart={this.handleChangeStart}
+                                        onChange={this.handleFVSWidthChange}
+                                        />
+                                        <div className='auto_row'>
+                                            <div className="font_value">{store.fontVariationSettings_widthState}</div>
+                                            <div 
+                                            style={{ 
+                                                backgroundColor: store.isFontVS_WidthAuto ? '#000' : '#E4E4E4',
+                                                color : store.isFontVS_WidthAuto ? '#fff' : '#000',
+                                                width: 80,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 8,
+                                                fontSize: 10,
+                                            }}
+                                            onClick={()=> {
+                                                this._toggleFVSWidthAuto();
+                                            }}
+                                            >
+                                            {store.isFontVS_WidthAuto ? 'Pause' : 'Play'}
+                                            </div>
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}
+                                            onClick={()=> {
+
+                                                this.__toggleSecond('font/vs/width')
+                                            }}
+                                            >
+                                            {store.secondfontVariationSettings_widthState == 100 ? "x1"  : ""}
+                                            {store.secondfontVariationSettings_widthState == 200 ? "x2"  : ""}
+                                            {store.secondfontVariationSettings_widthState == 300 ? "x3"  : ""}
+                                            </div>
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}>
+                                                ?
+                                            </div>
+                                        </div>
+                                    </div> */}
+
+
+                                    <div 
+                                    style={{  
+                                        fontFamily: 'Earth_FinalGX' , 
+                                        maxWidth: 225,
+                                        fontSize: 10, 
+                                        fontWeight: 700,
+                                        marginTop: 20}}>
+                                        VARIABLE Weight
+                                        
+                                        <Slider
+                                        min={store.minfontVariationSettings_weightState}
+                                        max={store.maxfontVariationSettings_weightState}
+                                        value={store.fontVariationSettings_weightState}
+                                        style={{ color: '#000'}}
+                                        onChangeStart={this.handleChangeStart}
+                                        onChange={this.handleFVSWeightChange}
+                                        />
+                                        <div className='auto_row'>
+                                            <div className="font_value">{store.fontVariationSettings_weightState}</div>
+                                            <div 
+                                            style={{ 
+                                                backgroundColor: store.isFontVS_WeightAuto ? '#000' : '#E4E4E4',
+                                                color : store.isFontVS_WeightAuto ? '#fff' : '#000',
+                                                width: 80,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 8,
+                                                fontSize: 10,
+                                            }}
+                                            onClick={()=> {
+                                                this._toggleFVSWeightAuto();
+                                            }}
+                                            >
+                                            {store.isFontVS_WeightAuto ? 'Pause' : 'Play'}
+                                            </div>
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}
+                                            onClick={()=> {
+
+                                                this.__toggleSecond('font/vs/weight')
+                                            }}
+                                            >
+                                            {store.secondfontVariationSettings_weightState == 100 ? "x1"  : ""}
+                                            {store.secondfontVariationSettings_weightState == 200 ? "x2"  : ""}
+                                            {store.secondfontVariationSettings_weightState == 300 ? "x3"  : ""}
+                                            </div>
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}>
+                                                ?
+                                            </div>
+                                        </div>
                                     </div>
+                                    {/* <div 
+                                    style={{  
+                                        fontFamily: 'Earth_FinalGX' , 
+                                        maxWidth: 225,
+                                        fontSize: 10, 
+                                        fontWeight: 700,
+                                        marginTop: 20}}>
+                                        VARIABLE Italic
+                                        
+                                        <Slider
+                                        min={store.minfontVariationSettings_italicState}
+                                        max={store.maxfontVariationSettings_italicState}
+                                        value={store.fontVariationSettings_italicState}
+                                        style={{ color: '#000'}}
+                                        onChangeStart={this.handleChangeStart}
+                                        onChange={this.handleFVSItalicChange}
+                                        />
+                                        <div className='auto_row'>
+                                            <div className="font_value">{store.fontVariationSettings_italicState}</div>
+                                            <div 
+                                            style={{ 
+                                                backgroundColor: store.isFontVS_ItalicAuto ? '#000' : '#E4E4E4',
+                                                color : store.isFontVS_ItalicAuto ? '#fff' : '#000',
+                                                width: 80,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 8,
+                                                fontSize: 10,
+                                            }}
+                                            onClick={()=> {
+                                                this._toggleFVSItalicAuto();
+                                            }}
+                                            >
+                                            {store.isFontVS_ItalicAuto ? 'Pause' : 'Play'}
+                                            </div>
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}
+                                            onClick={()=> {
+
+                                                this.__toggleSecond('font/vs/italic')
+                                            }}
+                                            >
+                                            {store.secondfontVariationSettings_italicState == 100 ? "x1"  : ""}
+                                            {store.secondfontVariationSettings_italicState == 200 ? "x2"  : ""}
+                                            {store.secondfontVariationSettings_italicState == 300 ? "x3"  : ""}
+                                            </div>
+                                            <div style={{ 
+                                                backgroundColor: '#E4E4E4',
+                                                color : '#000',
+                                                width: 20,
+                                                height: 20, 
+                                                display: 'flex',
+                                                alignItems: 'center',
+                                                justifyContent: 'center',
+                                                borderRadius : 10,
+                                                fontSize: 10,
+                                                marginLeft: 5
+                                            }}>
+                                                ?
+                                            </div>
+                                        </div>
+                                    </div>*/}
                                     <div 
                                     style={{  
                                         fontFamily: 'Earth_FinalGX' , 
@@ -1091,7 +1565,7 @@ class Header extends App {
                                                 ?
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> 
                                     <div
                                     style={{  
                                         fontFamily: 'Earth_FinalGX' , 

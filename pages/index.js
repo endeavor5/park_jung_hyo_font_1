@@ -67,33 +67,33 @@ class Index extends Component {
         // fontLineSpacingState
 
         reaction(
-            () => store.fontSizeState,
-            (value, reaction) => {
-            //   console.log(`a 값이 ${value} 로 바뀌었네요!`);
-                this.cmaTextareaSize('input_content', 10);
-            }
-          );
-          reaction(
-              () => store.fontWeightState,
-              (value, reaction) => {
-              //   console.log(`a 값이 ${value} 로 바뀌었네요!`);
-                  this.cmaTextareaSize('input_content', 10);
-              }
-            );
-            reaction(
-                () => store.fontLetterSpacingState,
-                (value, reaction) => {
-                //   console.log(`a 값이 ${value} 로 바뀌었네요!`);
-                    this.cmaTextareaSize('input_content', 10);
-                }
-              );
-              reaction(
-                  () => store.fontLineSpacingState,
-                  (value, reaction) => {
-                  //   console.log(`a 값이 ${value} 로 바뀌었네요!`);
-                      this.cmaTextareaSize('input_content', 10);
-                  }
-                );
+        () => store.fontSizeState,
+        (value, reaction) => {
+        //   console.log(`a 값이 ${value} 로 바뀌었네요!`);
+        this.cmaTextareaSize('input_content', 10);
+        }
+        );
+        reaction(
+        () => store.fontWeightState,
+        (value, reaction) => {
+        //   console.log(`a 값이 ${value} 로 바뀌었네요!`);
+        this.cmaTextareaSize('input_content', 10);
+        }
+        );
+        reaction(
+        () => store.fontLetterSpacingState,
+        (value, reaction) => {
+        //   console.log(`a 값이 ${value} 로 바뀌었네요!`);
+        this.cmaTextareaSize('input_content', 10);
+        }
+        );
+        reaction(
+        () => store.fontLineSpacingState,
+        (value, reaction) => {
+        //   console.log(`a 값이 ${value} 로 바뀌었네요!`);
+            this.cmaTextareaSize('input_content', 10);
+        }
+        );
 
     }
 
@@ -106,7 +106,9 @@ class Index extends Component {
             <>
             <Header prefix={prefix}></Header>
                 <div className=" " style={{ width: '100%', marginTop: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column'}}>
-                    <div className="font_display_container"  style={{  marginTop: 40, }}>
+                    <div className="font_display_container"  style={{  marginTop: 40, 
+                    
+                    }}>
 
                         {/* <div className="font_display_area" 
                         style={{  
@@ -122,10 +124,12 @@ class Index extends Component {
                                     name="input_content"
                                     id="input_content"
                                     value={this.state.input_content}
-                                    style={{  
+                                    style={{
+                                        direction: "ltr",
                                         fontSize : store.fontSizeState, 
-                                        fontWeight:  store.fontWeightState,
-                                        color: store.isHello ?"#000" :store.fontColorState,
+                                        // fontWeight:  store.fontWeightState,
+                                        fontVariationSettings: `"wght" ${store.fontVariationSettings_weightState}, "wdth" ${store.fontVariationSettings_widthState}, "ital" ${store.fontVariationSettings_italicState}`,
+                                        color: store.isHello ? "#000" :store.fontColorState,
                                         letterSpacing: store.fontLetterSpacingState, 
                                         lineHeight: store.fontLineSpacingState,
                                         wordWrap: 'wrap',

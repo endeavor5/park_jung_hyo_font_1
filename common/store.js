@@ -10,7 +10,7 @@ class Store {
 
     @observable isPlayAll = false;
 
-    @observable minFontSize = 0;
+    @observable minFontSize = 10;
     @observable maxFontSize = 100;
     @observable unitFontSize = 1;
     @observable directionFontSize = 'positive'; // negative;
@@ -41,6 +41,12 @@ class Store {
     @observable defaultFontColorState = '#000';
     @observable defaultFontState = null;
 
+
+    @observable defaultfontVariationSettings_widthState = 100;
+    @observable defaultfontVariationSettings_weightState = 100;
+    @observable defaultfontVariationSettings_italicState = 0;
+
+
     @observable fontSizeState = 50;
     @observable fontWeightState = 300;
     @observable fontLetterSpacingState = 0;
@@ -48,10 +54,37 @@ class Store {
     @observable fontColorState = '#000';
     @observable fontState = null;
 
+    @observable fontVariationSettings_widthState  = 100; // 100 - 150
+    @observable fontVariationSettings_weightState = 100; // 100 - 200
+    @observable fontVariationSettings_italicState = 0; // 0 - 100
+    
+    @observable minfontVariationSettings_widthState = 100;
+    @observable maxfontVariationSettings_widthState = 150;
+    @observable unitfontVariationSettings_widthState = 1;
+    @observable directionfontVariationSettings_widthState = 'positive'; // negative;
+    @observable secondfontVariationSettings_widthState = 100;
+
+    @observable minfontVariationSettings_weightState = 100;
+    @observable maxfontVariationSettings_weightState = 500;
+    @observable unitfontVariationSettings_weightState = 1;
+    @observable directionfontVariationSettings_weightState = 'positive'; // negative;
+    @observable secondfontVariationSettings_weightState = 100;
+
+    @observable minfontVariationSettings_italicState = 0;
+    @observable maxfontVariationSettings_italicState = 100;
+    @observable unitfontVariationSettings_italicState = 1;
+    @observable directionfontVariationSettings_italicState = 'positive'; // negative;
+    @observable secondfontVariationSettings_italicState = 100;
+
     @observable isFontSizeAuto = false;
     @observable isFontWeightAuto = false;
     @observable isFontLetterSpacingAuto = false;
     @observable isFontLineSpacingAuto = false;
+
+
+    @observable isFontVS_WidthAuto = false;
+    @observable isFontVS_WeightAuto = false;
+    @observable isFontVS_ItalicAuto = false;
 
 }
 export default (new Store);
